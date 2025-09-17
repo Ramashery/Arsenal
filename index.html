@@ -1,0 +1,2211 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arsenal Garden - Сажаем сад на Арсенальной горе</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Segoe+UI&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles & Resets (No changes here) */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* --- START OF IMPROVEMENT: New Color Palette --- */
+        :root {
+            --primary-green: #5b8c7d;      /* Спокойный зелёный */
+            --secondary-teal: #3a9188;     /* Насыщенный бирюзовый */
+            --accent-gold: #d4a96a;        /* Тёплый золотистый акцент */
+            --light-cream: #f8f4e9;        /* Кремовый фон */
+            --dark-blue: #2b3d4d;          /* Тёмно-синий вместо чёрного */
+            --text-dark: #2b3d4d;          /* Тёмный текст */
+            --text-light: #f8f4e9;         /* Светлый текст */
+            --overlay-dark: rgba(43, 61, 77, 0.85); /* Тёмный оверлей */
+
+            /* --- START OF CHANGE: Neomorphism Shadow Colors --- */
+            --shadow-dark-outer: rgba(0, 0, 0, 0.25);
+            --shadow-light-outer: rgba(255, 255, 255, 0.08);
+            /* --- END OF CHANGE --- */
+
+            /* Mapped to old variable names for compatibility */
+            --primary-color: var(--primary-green);
+            --secondary-color: var(--secondary-teal);
+            --accent-color: var(--accent-gold);
+            --light-color: var(--light-cream);
+            --dark-color: var(--dark-blue);
+            --text-color: var(--text-dark);
+            --text-color-light: var(--text-light);
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        /* --- END OF IMPROVEMENT --- */
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            line-height: 1.7;
+            color: var(--text-color);
+            background-color: var(--light-color);
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            color: white;
+            font-weight: 400;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        h2 {
+            font-size: 2.8rem;
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+        
+        /* --- START OF IMPROVEMENT: Consistent Left Alignment for Titles --- */
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0; /* Always align line to the left */
+            width: 70px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        /* --- START OF CHANGE: Harmonious Section Title Spacing --- */
+        .section-title {
+            text-align: left;
+            margin-top: 2rem;
+            margin-bottom: 4rem;
+        }
+        /* --- END OF CHANGE --- */
+
+        h3 {
+            font-size: 1.8rem;
+        }
+        
+        /* --- START OF IMPROVEMENT: Global Left Alignment for Paragraphs --- */
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            max-width: 800px;
+            text-align: left; /* Set left alignment as default for all paragraphs */
+        }
+        /* Exceptions for elements that should remain centered */
+        footer, footer p, .team-member p {
+             text-align: center;
+        }
+        /* --- END OF IMPROVEMENT --- */
+        
+        /* Containers & Sections */
+        /* --- START OF IMPROVEMENT: Better Container Padding --- */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem; /* Increased default padding for better spacing */
+        }
+        /* --- END OF IMPROVEMENT --- */
+
+        section {
+            padding: 6rem 0;
+            overflow: hidden;
+        }
+        
+        .section-dark {
+            background-color: var(--dark-color);
+            color: var(--text-color-light);
+        }
+        
+        .section-dark h2, .section-dark h3, .section-dark p, .section-dark h4 {
+            color: var(--text-color-light);
+        }
+
+        /* --- START OF CHANGE: Header Styling --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: var(--light-cream); /* Permanent solid background */
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 1.5rem 0; /* Increased height, making it constant */
+            box-shadow: 0 4px 20px rgba(43, 61, 77, 0.1); /* Permanent shadow */
+            border-bottom: 1px solid rgba(43, 61, 77, 0.1);
+        }
+        
+        /* Removed the header.scrolled class as it's no longer needed */
+        
+        .nav-container { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 0; /* Padding is now on the header itself */
+        }
+        /* --- END OF CHANGE --- */
+
+        .logo {
+            position: relative;
+            overflow: hidden;
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--primary-green);
+            text-decoration: none;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gold);
+            transition: width 0.3s ease;
+        }
+
+        .logo:hover::after {
+            width: 100%;
+        }
+
+        /* --- START OF IMPROVEMENT: New Unified Navigation Panel --- */
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            list-style: none;
+            position: fixed;
+            top: 0;
+            right: 0; /* Always position to the right */
+            width: 90%; /* Responsive width for mobile */
+            max-width: 400px; /* Max width for desktop */
+            height: 100vh;
+            background: rgba(248, 244, 233, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 6rem 3rem; /* Generous padding */
+            align-items: flex-start;
+            box-shadow: -5px 0 25px rgba(43, 61, 77, 0.15);
+            z-index: 1005;
+            transform: translateX(100%); /* Start off-screen */
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .nav-menu.active {
+            transform: translateX(0); /* Slide in */
+        }
+
+        .nav-menu li {
+            width: 100%;
+            margin-bottom: 1rem;
+            /* Animation setup */
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        /* Staggered animation for menu items */
+        .nav-menu.active li:nth-child(1) { transition-delay: 0.20s; }
+        .nav-menu.active li:nth-child(2) { transition-delay: 0.25s; }
+        .nav-menu.active li:nth-child(3) { transition-delay: 0.30s; }
+        .nav-menu.active li:nth-child(4) { transition-delay: 0.35s; }
+        .nav-menu.active li:nth-child(5) { transition-delay: 0.40s; }
+        .nav-menu.active li:nth-child(6) { transition-delay: 0.45s; }
+        .nav-menu.active li:nth-child(7) { transition-delay: 0.50s; }
+        
+        .nav-menu.active li {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-size: 1.8rem; /* Larger, more elegant font size */
+            font-family: var(--font-heading);
+            font-weight: 400;
+            transition: var(--transition);
+            position: relative;
+            padding-bottom: 8px;
+            display: inline-block;
+        }
+        .nav-menu a::after {
+            content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px;
+            background: var(--primary-color);
+            transition: var(--transition);
+        }
+        .nav-menu a:hover, .nav-menu a.active { color: var(--primary-color); }
+        .nav-menu a:hover::after, .nav-menu a.active::after { width: 50%; }
+
+        /* Overlay for when menu is open */
+        .nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1004;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+        .nav-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Hamburger is now always visible */
+        .hamburger {
+            display: flex; /* Always visible */
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 25px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1010; /* Make sure it's on top of everything */
+            margin-left: 1rem;
+        }
+        /* --- END OF IMPROVEMENT --- */
+        
+        .language-switcher button { background: none; border: none; cursor: pointer; margin-left: 0.5rem; opacity: 0.6; transition: var(--transition); font-family: var(--font-body); }
+        .language-switcher button.active { opacity: 1; font-weight: 600; color: var(--primary-color); }
+
+        .hamburger span {
+            width: 100%;
+            height: 3px;
+            background-color: var(--dark-color);
+            border-radius: 2px;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .hamburger.active span { background-color: var(--dark-color); } /* Ensure color consistency when open */
+        .hamburger.active span:nth-child(1) { transform: translateY(11px) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: translateY(-11px) rotate(-45deg); }
+
+        /* --- START OF CHANGE: Hero Section Styling --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Align content to the center */
+            text-align: center; /* Align text to the center */
+            background: linear-gradient(var(--overlay-dark), var(--overlay-dark)), url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            background-attachment: fixed;
+        }
+        
+        .hero-content {
+            text-align: center;
+            max-width: 900px; /* Increased max-width for countdown */
+            padding: 0 5%; /* Add horizontal padding for mobile */
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: white;
+            font-style: italic;
+            margin-bottom: 1rem;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            text-align: center; /* Explicitly set alignment */
+        }
+
+        .hero-date {
+            font-size: 1.2rem;
+            color: white;
+            letter-spacing: 2px;
+            margin-top: 2rem;
+            text-align: center; /* Explicitly set alignment */
+        }
+        /* --- END OF CHANGE --- */
+        
+        /* --- START OF ADDITION: Countdown Timer Styling --- */
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2.5rem;
+            text-align: center;
+            color: white;
+        }
+        .countdown-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .countdown-number {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            font-weight: 600;
+            line-height: 1;
+        }
+        .countdown-label {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+        /* --- END OF ADDITION --- */
+        
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--secondary-teal);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            border: 2px solid var(--secondary-teal);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            background-color: var(--dark-blue);
+            border-color: var(--dark-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(43, 61, 77, 0.2);
+        }
+        
+        .btn-outline { background: transparent; color: white; border-color: white; }
+        .btn-outline:hover { background: white; color: var(--dark-color); }
+
+        /* About Section */
+        #about-content-wrapper { max-width: 800px; } /* Removed margin auto, alignment is handled by container */
+        .about-item h3 { margin-top: 3rem; }
+        .about-item:first-child h3 { margin-top: 0; }
+        
+        /* --- START OF CHANGE: Fix for crypto wallet text wrapping --- */
+        #help-card1-details {
+            white-space: pre-wrap;
+            overflow-wrap: break-word; /* Forces long strings to wrap */
+        }
+        /* --- END OF CHANGE --- */
+
+        /* Trees Section */
+        #trees { padding: 0; }
+        .trees-slider {
+            position: relative;
+            width: 100%;
+            height: 80vh;
+            overflow: hidden;
+            background: var(--dark-color);
+        }
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: flex-end;
+        }
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to top, var(--overlay-dark), transparent 50%);
+        }
+        .slide.active { opacity: 1; }
+        .slide-content {
+            position: relative;
+            z-index: 2;
+            color: var(--text-color-light);
+            padding: 3rem 5%;
+            width: 100%;
+        }
+        .slide-content h3 { color: white; }
+        .slide-content p { color: var(--text-color-light); max-width: 600px; }
+
+        /* Events Section */
+        .events-timeline { position: relative; max-width: 800px; margin: 0; } /* Removed margin auto */
+        .events-timeline::before { content: ''; position: absolute; left: 15px; top: 0; height: 100%; width: 3px; background: var(--secondary-color); }
+        .event-item { padding: 1rem 0 2rem 50px; position: relative; }
+        .event-item::before { content: ''; position: absolute; left: 0; top: 1.2rem; width: 30px; height: 30px; border-radius: 50%; background-color: var(--light-color); border: 4px solid var(--accent-color); z-index: 1; }
+        
+        /* Help Section */
+        .help-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        
+        /* --- START OF CHANGE: Neomorphic Card Styling --- */
+        .card {
+            background: var(--dark-blue);
+            border-radius: 20px;
+            padding: 2.5rem;
+            height: 100%;
+            box-shadow: 10px 10px 20px var(--shadow-dark-outer), 
+                        -10px -10px 20px var(--shadow-light-outer);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+        }
+        .card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 15px 15px 30px var(--shadow-dark-outer), 
+                        -15px -15px 30px var(--shadow-light-outer);
+        }
+        /* --- END OF CHANGE --- */
+        
+        /* --- START OF CHANGE: Neomorphic Map Styling --- */
+        .garden-map { 
+            background: var(--dark-blue);
+            padding: 3rem; /* Increased padding */
+            border-radius: 20px; 
+            margin: 4rem 0; 
+            box-shadow: 10px 10px 20px var(--shadow-dark-outer),
+                        -10px -10px 20px var(--shadow-light-outer);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        /* --- END OF CHANGE --- */
+
+        .progress-container h4 { margin-bottom: 1rem; }
+        .progress-bar { width: 100%; height: 30px; background-color: rgba(255,255,255,0.1); border-radius: 15px; overflow: hidden; position: relative; }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: width 1.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+        .progress-fill span { color: white; font-weight: bold; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+        
+        /* --- START OF CHANGE: Map Grid and Icons Styling --- */
+        .map-grid { 
+            display: grid; 
+            grid-template-columns: repeat(9, 1fr); 
+            gap: 15px; /* Increased gap for icons */
+            margin-top: 2rem; 
+            max-width: 600px; 
+            margin-left: auto; 
+            margin-right: auto;
+            width: 100%;
+        }
+        .map-category-icon {
+            color: var(--primary-green);
+            border-radius: 50%;
+            aspect-ratio: 1/1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            opacity: 0.7;
+            transition: var(--transition);
+            font-size: 1.8rem;
+        }
+        .map-category-icon:hover {
+            transform: scale(1.2);
+            z-index: 10;
+            opacity: 1;
+            color: var(--secondary-teal);
+        }
+        .map-category-icon.cypress { 
+            grid-column: 5 / 6; 
+            grid-row: 4 / 5; 
+            color: var(--primary-color); 
+            transform: scale(1.4); 
+            opacity: 1; 
+        }
+        .map-category-icon.cypress:hover { transform: scale(1.5); }
+        .map-category-icon.sponsored { 
+            color: var(--accent-color); 
+            animation: pulse 2s infinite; 
+            opacity: 1; 
+        }
+        .map-category-icon.sponsored::before { 
+            content: '♥'; 
+            position: absolute; 
+            top: -2px; 
+            right: 0px; 
+            font-size: 16px; 
+            color: var(--accent-color); 
+            text-shadow: 0 0 5px white; 
+        }
+        /* --- END OF CHANGE --- */
+
+
+        /* Materials Section (Accordion) */
+        .materials-accordion { max-width: 800px; margin: 0; } /* Removed margin auto */
+        /* --- START OF CHANGE: Neomorphic Accordion Style --- */
+        .material-item {
+            background: var(--dark-blue);
+            margin-bottom: 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 10px 10px 20px var(--shadow-dark-outer),
+                        -10px -10px 20px var(--shadow-light-outer);
+            transition: var(--transition);
+        }
+        .material-item:hover {
+            transform: translateY(-5px);
+        }
+        /* --- END OF CHANGE --- */
+        .material-item summary { padding: 1.5rem; cursor: pointer; font-weight: 600; font-size: 1.2rem; list-style: none; position: relative; }
+        .material-item summary::-webkit-details-marker { display: none; }
+        .material-item summary::after { content: '+'; position: absolute; right: 1.5rem; top: 50%; transform: translateY(-50%); font-size: 1.5rem; transition: var(--transition); }
+        .material-item[open] summary::after { transform: translateY(-50%) rotate(45deg); }
+        .material-content { padding: 0 1.5rem 1.5rem 1.5rem; }
+        .material-content ul { padding-left: 1.5rem; }
+
+        /* Team Section */
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 2rem; }
+        .team-member { text-align: center; }
+        .team-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem;
+            border: 5px solid var(--secondary-color);
+            transition: var(--transition);
+        }
+        .team-member:hover .team-img {
+            transform: scale(1.05);
+            border-color: var(--accent-color);
+            box-shadow: 0 5px 15px rgba(43, 61, 77, 0.2);
+        }
+
+        /* Contacts Section */
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; }
+        .form-control { width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem; transition: var(--transition); background-color: #fdfdfd; }
+        .form-control:focus { border-color: var(--primary-color); outline: none; box-shadow: 0 0 0 3px rgba(91, 140, 125, 0.2); }
+        .social-links { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .social-links a { display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background-color: var(--primary-color); color: white; border-radius: 50%; text-decoration: none; transition: var(--transition); font-size: 1.2rem; }
+        .social-links a:hover { background-color: var(--accent-color); transform: translateY(-3px); }
+
+        .map-container { margin-top: 4rem; text-align: left; } /* Align map title to the left */
+        .map-container h3 { margin-bottom: 1.5rem; }
+
+        /* Footer */
+        footer { background-color: var(--dark-color); color: var(--text-color-light); padding: 3rem 0; text-align: center; }
+        footer p { max-width: none; margin: 0.5rem 0; color: var(--secondary-color); text-align: center;}
+        #footer-copyright { cursor: pointer; }
+
+
+        /* Animations */
+        @keyframes subtleFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .fade-in {
+            animation: subtleFadeIn 0.6s ease-out forwards;
+            opacity: 0; 
+            animation-play-state: paused;
+        }
+        .fade-in.visible {
+             animation-play-state: running;
+        }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            h1 { font-size: 2.8rem; }
+            h2 { font-size: 2.2rem; }
+            section { padding: 4rem 0; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .trees-slider { height: 70vh; }
+            .countdown-number { font-size: 2.5rem; }
+            .countdown-label { font-size: 0.9rem; }
+            .countdown { gap: 1.5rem; }
+        }
+        
+        @media (max-width: 768px) {
+            /* --- START OF IMPROVEMENT: Consistent Mobile Padding --- */
+            .container {
+                width: 100%; /* Use full width with internal padding */
+                padding: 0 1.5rem; /* Add consistent padding on mobile */
+            }
+            /* --- END OF IMPROVEMENT --- */
+
+            section { padding: 3rem 0; }
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+           
+            /* --- START OF IMPROVEMENT: Mobile Menu Adjustments --- */
+            .nav-menu {
+                padding: 6rem 1.5rem; /* Adjust padding for smaller screens */
+            }
+            .nav-menu a {
+                font-size: 1.5rem; /* Slightly smaller font for mobile menu */
+            }
+            /* --- END OF IMPROVEMENT --- */
+            
+            /* --- START OF CHANGE: Mobile Hero Text Alignment --- */
+            .hero-content {
+                text-align: left;
+                width: 100%;
+            }
+            h1 {
+                text-align: center; /* Keep main title centered */
+                margin-bottom: 2rem; /* Add space below title */
+            }
+            .hero-subtitle, .hero-date {
+                text-align: left;
+                max-width: 400px;
+                margin-left: 0; /* Align with container padding */
+            }
+            .hero-subtitle {
+                margin-bottom: 1.5rem; /* Spacing between lines */
+            }
+            .hero-date {
+                margin-top: 0;
+            }
+            .countdown {
+                justify-content: flex-start;
+                padding: 0;
+                gap: 1.5rem;
+            }
+            .countdown-number { font-size: 2rem; }
+            .countdown-label { font-size: 0.8rem; }
+            /* --- END OF CHANGE --- */
+
+            .contact-grid { gap: 2rem; }
+            .trees-slider { height: 60vh; }
+            .slide-content { padding: 2rem 5%; }
+            
+            /* --- START OF CHANGE: More padding for neomorphic blocks on mobile --- */
+            .card { padding: 2rem; }
+            .garden-map { padding: 2rem; }
+            /* --- END OF CHANGE --- */
+            
+            /* --- START OF CHANGE: Responsive Map Grid Gap --- */
+            .map-grid {
+                gap: 10px; /* Adjusted gap for smaller icons */
+            }
+            .map-category-icon {
+                font-size: 1.5rem;
+            }
+            /* --- END OF CHANGE --- */
+        }
+        
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7); z-index: 2000; display: flex;
+            align-items: center; justify-content: center; opacity: 0;
+            visibility: hidden; transition: all 0.3s ease;
+        }
+        .modal-overlay.visible { opacity: 1; visibility: visible; }
+        .modal-content {
+            background: white; padding: 2rem; border-radius: 10px;
+            max-width: 500px; width: 90%; position: relative;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            transform: translateY(-50px); transition: all 0.3s ease;
+        }
+        .modal-overlay.visible .modal-content { transform: translateY(0); }
+        .modal-close {
+            position: absolute; top: 15px; right: 15px; background: none;
+            border: none; font-size: 1.5rem; cursor: pointer; color: #aaa;
+        }
+        .modal-img { width: 100%; height: 200px; object-fit: cover; border-radius: 5px; margin-bottom: 1rem; }
+        
+        /* --- START OF CHANGE: Modal Content Styling --- */
+        #modal-tree-desc {
+            margin-top: 1rem;
+            color: #555;
+            font-size: 1rem;
+        }
+        .modal-progress-bar { 
+            width: 100%; 
+            background: #eee; 
+            border-radius: 5px; 
+            height: 20px; 
+            overflow: hidden; 
+            margin-top: 0.5rem;
+        }
+        .modal-progress-fill { height: 100%; background: var(--primary-color); border-radius: 5px; transition: width 0.5s ease; }
+        /* --- END OF CHANGE --- */
+
+
+        :root {
+            --admin-bg: #1e293b;
+            --admin-sidebar: #0f172a;
+            --admin-primary: #5b8c7d; /* Updated color */
+            --admin-secondary: #3a9188; /* Updated color */
+            --admin-text: #f1f5f9;
+            --admin-text-muted: #94a3b8;
+            --admin-card-bg: #334155;
+            --admin-border: #475569;
+            --admin-success: #10b981;
+            --admin-error: #ef4444;
+            --admin-warning: #f59e0b;
+        }
+
+        #admin-panel {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: var(--admin-bg); color: var(--admin-text);
+            z-index: 9999; display: none; flex-direction: column;
+            opacity: 0; visibility: hidden; transition: opacity 0.3s ease;
+        }
+        #admin-panel.visible { display: flex; opacity: 1; visibility: visible; }
+        
+        .admin-header {
+            background: var(--admin-sidebar); border-bottom: 1px solid var(--admin-border);
+            padding: 1rem 2rem; display: flex; justify-content: space-between;
+            align-items: center; flex-shrink: 0;
+        }
+        .admin-header h2 { color: var(--admin-text); margin: 0; font-size: 1.5rem; }
+        .admin-header .admin-btn {
+             padding: 0.6rem 1.2rem; border-radius: 8px; border: none; cursor: pointer;
+             font-weight: bold; transition: all 0.2s ease;
+        }
+        .btn-save { background: var(--admin-primary); color: white; }
+        .btn-save:hover { background: #4a7d6d; }
+        .btn-save:disabled { background: var(--admin-border); cursor: not-allowed; }
+        .btn-close { background: var(--admin-card-bg); color: var(--admin-text); }
+        .btn-close:hover { background: var(--admin-border); }
+
+        .admin-body { flex-grow: 1; overflow-y: hidden; display: flex; position: relative; }
+
+        #admin-menu-toggle {
+            display: none;
+            background: none; border: none; color: var(--admin-text);
+            font-size: 1.5rem; cursor: pointer;
+        }
+        .admin-overlay {
+            display: none;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 50;
+        }
+        .admin-overlay.active { display: block; }
+        
+        .admin-nav {
+            width: 250px; background: var(--admin-sidebar); flex-shrink: 0;
+            border-right: 1px solid var(--admin-border); overflow-y: auto; padding: 1rem 0;
+            transition: transform 0.3s ease-in-out;
+        }
+        .admin-nav button {
+            display: block; width: 100%; padding: 1rem 1.5rem; background: none;
+            border: none; color: var(--admin-text-muted); text-align: left;
+            cursor: pointer; font-size: 1rem; border-left: 3px solid transparent;
+            transition: all 0.2s ease;
+        }
+        .admin-nav button:hover { background: rgba(91, 140, 125, 0.1); color: var(--admin-text); }
+        .admin-nav button.active {
+            background: rgba(91, 140, 125, 0.2); color: var(--admin-primary);
+            border-left-color: var(--admin-primary); font-weight: 600;
+        }
+
+        .admin-content-area { flex-grow: 1; overflow-y: auto; padding: 2rem; }
+        .admin-section { display: none; animation: fadeIn 0.5s ease; }
+        .admin-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .admin-section-header { margin-bottom: 2rem; }
+        .admin-section-header h3 { font-size: 2rem; color: var(--admin-text); margin-bottom: 0.5rem; }
+        .admin-breadcrumbs { color: var(--admin-text-muted); font-size: 0.9rem; }
+        .admin-breadcrumbs a { color: var(--admin-secondary); text-decoration: none; }
+        .admin-breadcrumbs .breadcrumb-separator { margin: 0 0.5rem; }
+        
+        .admin-card {
+            background: var(--admin-card-bg); border-radius: 12px;
+            margin-bottom: 1.5rem; border: 1px solid var(--admin-border);
+        }
+        .admin-card-header {
+            padding: 1rem 1.5rem; border-bottom: 1px solid var(--admin-border);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .admin-card-header h4 { margin: 0; color: var(--admin-text); font-size: 1.1rem; }
+        .admin-card-body { padding: 1.5rem; }
+
+        .admin-form-group { margin-bottom: 1.5rem; }
+        .admin-form-group label {
+            display: block; margin-bottom: 0.5rem; font-weight: 600;
+            color: var(--admin-text-muted); font-size: 0.9rem;
+        }
+        .admin-form-group input, .admin-form-group textarea {
+            width: 100%; padding: 0.75rem; background: #2d3748;
+            border: 1px solid var(--admin-border); border-radius: 6px;
+            color: var(--admin-text); font-size: 1rem; transition: border-color 0.2s ease;
+        }
+        .admin-form-group input:focus, .admin-form-group textarea:focus {
+            outline: none; border-color: var(--admin-primary);
+            box-shadow: 0 0 0 3px rgba(91, 140, 125, 0.2);
+        }
+        .admin-form-group textarea { min-height: 120px; resize: vertical; }
+
+        .image-preview-wrapper {
+            margin-top: 1rem; display: flex; align-items: center; gap: 1rem;
+            background: #2d3748; padding: 1rem; border-radius: 6px;
+        }
+        .image-preview-wrapper img { max-width: 150px; max-height: 100px; border-radius: 4px; object-fit: cover; }
+        .image-preview-placeholder { width: 150px; height: 100px; background: var(--admin-border); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: var(--admin-text-muted); }
+
+        .admin-lang-tabs { margin-bottom: 1.5rem; border-bottom: 1px solid var(--admin-border); }
+        .admin-lang-tabs button {
+            background: none; border: none; color: var(--admin-text-muted); padding: 0.75rem 1rem;
+            cursor: pointer; border-bottom: 3px solid transparent; font-size: 1rem;
+        }
+        .admin-lang-tabs button.active { color: var(--admin-primary); border-bottom-color: var(--admin-primary); font-weight: 600; }
+        
+        .admin-btn { padding: 0.6rem 1.2rem; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; transition: all 0.2s ease; }
+        .btn-add { background: var(--admin-primary); color: white; }
+        .btn-add:hover { background: #4a7d6d; }
+        .btn-delete { background: var(--admin-error); color: white; margin-left: 0.5rem; font-size: 0.8rem; padding: 0.4rem 0.8rem; }
+        .btn-delete:hover { background: #d6301f; }
+
+        .admin-notifications {
+            position: fixed; bottom: 20px; right: 20px;
+            z-index: 10000; display: flex; flex-direction: column; gap: 1rem;
+        }
+        .notification {
+            width: 350px; background: var(--admin-card-bg); color: var(--admin-text);
+            border-radius: 8px; padding: 1rem; display: flex; align-items: center;
+            gap: 1rem; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border-left: 5px solid var(--admin-border);
+            animation: slideInRight 0.5s ease;
+        }
+        @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        .notification.notification-success { border-color: var(--admin-success); }
+        .notification.notification-error { border-color: var(--admin-error); }
+        .notification-icon { font-size: 1.5rem; }
+        .notification.notification-success .notification-icon { color: var(--admin-success); }
+        .notification.notification-error .notification-icon { color: var(--admin-error); }
+        .notification-close { background: none; border: none; color: var(--admin-text-muted); cursor: pointer; margin-left: auto; font-size: 1.2rem; }
+
+        @media (max-width: 992px) {
+            .admin-nav {
+                position: absolute; top: 0; left: 0; height: 100%;
+                z-index: 100; transform: translateX(-100%);
+                border-right: 1px solid var(--admin-border);
+            }
+            .admin-nav.open { transform: translateX(0); }
+            #admin-menu-toggle { display: block; }
+            .admin-header { padding: 1rem; }
+            .admin-header h2 { font-size: 1.2rem; }
+            .admin-content-area { padding: 1.5rem; }
+            .admin-card-body { padding: 1rem; }
+        }
+        @media (max-width: 576px) {
+            .admin-header .admin-btn {
+                padding: 0.5rem 0.8rem;
+                font-size: 0.9rem;
+            }
+            .notification {
+                width: calc(100vw - 40px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div class="container nav-container">
+            <a href="#home" class="logo">Arsenal Garden</a>
+            <div style="display: flex; align-items: center;">
+                <!-- --- START OF IMPROVEMENT: Nav element is now just a container for the panel --- -->
+                <nav>
+                    <div class="nav-overlay" id="nav-overlay"></div>
+                    <ul class="nav-menu" id="nav-menu">
+                        <!-- Content generated by JS -->
+                    </ul>
+                </nav>
+                <!-- --- END OF IMPROVEMENT --- -->
+                <div class="language-switcher">
+                    <button data-lang="ru" class="active">RU</button>
+                    <button data-lang="en">EN</button>
+                    <button data-lang="ge">GE</button>
+                </div>
+                <button class="hamburger" id="hamburger-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <h1 data-i18n-key="hero.title">Arsenal Garden</h1>
+                <p class="hero-subtitle" data-i18n-key="hero.subtitle">Сажаем сад на Арсенальной горе</p>
+                <p class="hero-date" data-i18n-key="hero.date">19 октября 2025 года, воскресенье</p>
+                <!-- --- START OF ADDITION: Countdown Timer --- -->
+                <div id="countdown-timer" class="countdown">
+                    <!-- JS will generate content here -->
+                </div>
+                <!-- --- END OF ADDITION --- -->
+            </div>
+        </section>
+
+        <section id="about" class="container">
+            <div class="section-title fade-in">
+                <h2 data-i18n-key="about.title">О проекте</h2>
+            </div>
+            <div id="about-content-wrapper" class="fade-in">
+                <!-- Content generated by JS -->
+            </div>
+        </section>
+
+        <section id="trees">
+            <div class="trees-slider" id="trees-slider-wrapper">
+                <!-- Slides generated by JS -->
+            </div>
+        </section>
+
+        <section id="events" class="container">
+            <div class="section-title fade-in"><h2 data-i18n-key="events.title">События</h2></div>
+            <div class="events-timeline" id="events-timeline-wrapper">
+                <!-- Events generated by JS -->
+            </div>
+        </section>
+
+        <section id="help" class="section-dark">
+            <div class="container">
+                <div class="section-title fade-in">
+                    <h2 data-i18n-key="help.title">Как помочь</h2>
+                    <p data-i18n-key="help.intro" class="materials-intro">Arsenal Garden растёт благодаря людям. У каждого есть возможность стать частью этого сада — выбрать свой способ поддержки и вложить в него частичку себя.</p>
+                </div>
+                <div class="help-cards">
+                    <div class="card fade-in">
+                        <h3 data-i18n-key="help.card1.title">Деньгами</h3>
+                        <p data-i18n-key="help.card1.desc">Один саженец стоит примерно 50 GEL. Каждое пожертвование — это новое дерево, которое будет расти на Арсенальной горе.</p>
+                        <p id="help-card1-details" style="white-space: pre-wrap;"></p>
+                    </div>
+                    <div class="card fade-in">
+                        <h3 data-i18n-key="help.card2.title">Волонтёрством</h3>
+                        <p data-i18n-key="help.card2.desc">Можно прийти на посадку, помочь ухаживать за деревьями, фотографировать или освещать проект в медиа. Любая помощь делает сад живым.</p>
+                        <a href="#contacts" class="btn" style="margin-top:1rem" data-i18n-key="help.card2.button">Связаться с нами</a>
+                    </div>
+                    <div class="card fade-in">
+                        <h3 data-i18n-key="help.card3.title">Партнёрством</h3>
+                        <p data-i18n-key="help.card3.desc">Мы открыты к сотрудничеству с НКО, бизнесом и медиа. Вместе мы можем придать проекту новый масштаб и силу.</p>
+                        <a href="#contacts" class="btn" style="margin-top:1rem" data-i18n-key="help.card3.button">Обсудить сотрудничество</a>
+                    </div>
+                </div>
+
+                <div class="garden-map fade-in">
+                    <h3 data-i18n-key="map.title">Интерактивная карта сада</h3>
+                    <p data-i18n-key="map.desc">Подсвеченные деревья, когда на них собраны средства.</p>
+                    <div class="progress-container">
+                        <h4 id="map-goal-text">Цель: 55 деревьев</h4>
+                        <div class="progress-bar">
+                            <div id="progress-fill" class="progress-fill" style="width: 0%;"><span id="progress-text">0 / 55</span></div>
+                        </div>
+                    </div>
+                    <div class="map-grid" id="map-grid">
+                        <!-- Grid will be generated by JS -->
+                    </div>
+                     <p style="margin: 2rem auto 0; font-size: 0.9rem; text-align: left;" data-i18n-key="map.transparency">Для прозрачности мы ведём таблицу со всеми переводами. Так каждый может убедиться в том, что деньги учтены в общем сборе.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="materials" class="section-dark">
+            <div class="container">
+                <div class="section-title fade-in">
+                    <h2 data-i18n-key="materials.title">Материалы</h2>
+                    <p data-i18n-key="materials.intro" class="materials-intro">Мы собираем знания и вдохновение о городской экологии, урбанистике и искусстве.</p>
+                </div>
+                <div class="materials-accordion fade-in" id="materials-accordion-wrapper">
+                    <!-- Accordion generated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <section id="team" class="container">
+            <div class="section-title fade-in"><h2 data-i18n-key="team.title">Команда</h2></div>
+            <div class="team-grid" id="team-grid-wrapper">
+                <!-- Team members generated by JS -->
+            </div>
+        </section>
+        
+        <section id="contacts" class="container">
+            <div class="section-title fade-in"><h2 data-i18n-key="contacts.title">Контакты</h2></div>
+            <div class="contact-grid">
+                <div class="contact-info fade-in">
+                    <h3 data-i18n-key="contacts.heading">Свяжитесь с нами</h3>
+                    <p data-i18n-key="contacts.desc">Если у вас есть вопросы или предложения, напишите нам — мы всегда открыты к общению.</p>
+                    <div class="social-links" id="social-links-wrapper">
+                        <!-- Links generated by JS -->
+                    </div>
+                    <div style="margin-top: 2rem;">
+                        <h4 data-i18n-key="contacts.locationName">Арсенальная гора</h4>
+                        <p data-i18n-key="contacts.locationAddress">Тбилиси, Грузия</p>
+                    </div>
+                </div>
+                <form id="feedback-form" class="fade-in">
+                    <h3 data-i18n-key="contacts.form.title">Форма обратной связи</h3>
+                    <div class="form-group"><label for="name" data-i18n-key="contacts.form.name">Имя</label><input type="text" id="name" class="form-control" required></div>
+                    <div class="form-group"><label for="email" data-i18n-key="contacts.form.email">Email</label><input type="email" id="email" class="form-control" required></div>
+                    <div class="form-group"><label for="message" data-i18n-key="contacts.form.message">Сообщение</label><textarea id="message" class="form-control" rows="5" required></textarea></div>
+                    <button type="submit" class="btn" data-i18n-key="contacts.form.button">Отправить</button>
+                </form>
+            </div>
+            <div class="map-container fade-in">
+                <h3 data-i18n-key="contacts.mapLocation">Мы находимся здесь</h3>
+                <iframe id="google-map-iframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2978.313530545299!2d44.8065597766691!3d41.7052150712621!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!0x40440cd79be5eab1%3A0xf9d168b4f8b52bd!2sArsenal%20Mountain!5e0!3m2!1sen!2sge" width="100%" height="400" style="border:0; border-radius: 10px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p id="footer-copyright" style="cursor: pointer;">Arsenal Garden © 2024</p>
+            <p data-i18n-key="footer.motto">Сажаем сад на Арсенальной горе.</p>
+        </div>
+    </footer>
+
+    <!-- --- START OF CHANGE: Modified Modal Structure --- -->
+    <div class="modal-overlay" id="tree-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close-btn">&times;</button>
+            <img src="" alt="Tree Category" class="modal-img" id="modal-tree-img">
+            <h3 id="modal-tree-name">Tree Category Name</h3>
+            <p id="modal-tree-desc">Category description here.</p>
+            <p id="modal-tree-funds">Собрано: 0 / 0 деревьев</p>
+            <div class="modal-progress-bar">
+                <div class="modal-progress-fill" id="modal-tree-progress"></div>
+            </div>
+        </div>
+    </div>
+    <!-- --- END OF CHANGE --- -->
+    
+    <div id="admin-panel">
+        <div class="admin-header">
+            <button id="admin-menu-toggle"><i class="fas fa-bars"></i></button>
+            <h2>Админ-панель</h2>
+            <div>
+                <button id="admin-save-btn" class="admin-btn btn-save">Сохранить</button>
+                <button id="admin-close-btn" class="admin-btn btn-close">Закрыть</button>
+            </div>
+        </div>
+        <div class="admin-body">
+            <div class="admin-overlay" id="admin-overlay"></div>
+            <nav class="admin-nav" id="admin-nav-menu">
+                <!-- Nav buttons generated by JS -->
+            </nav>
+            <div class="admin-content-area" id="admin-content-wrapper">
+                <!-- Content sections generated by JS -->
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // --- START OF ADMIN PANEL & DYNAMIC CONTENT SCRIPT ---
+
+        // =================================
+        // 1. DATA STORE (No changes here)
+        // =================================
+        const defaultSiteData = {
+            global: {
+                socials: {
+                    instagram: "https://instagram.com",
+                    telegram: "https://telegram.org",
+                    email: "mailto:example@arsenalgarden.com"
+                },
+                mapIframeSrc: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2978.313530545299!2d44.8065597766691!3d41.7052150712621!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!0x40440cd79be5eab1%3A0xf9d168b4f8b52bd!2sArsenal%20Mountain!5e0!3m2!1sen!2sge",
+                eventDate: "2025-10-19",
+                // --- START OF CHANGE: New Tree Category Data Structure ---
+                treeCategories: [
+                    { id: 'almond', quantity: 10, costPerTree: 50, sponsoredCount: 7, img: 'https://images.unsplash.com/photo-1615485500608-2f6c6f2a0135?auto=format&fit=crop&w=400&q=80' },
+                    { id: 'quince', quantity: 8, costPerTree: 50, sponsoredCount: 8, img: 'https://images.unsplash.com/photo-1455659817273-f96807779a8a?auto=format&fit=crop&w=400&q=80' },
+                    { id: 'pomegranate', quantity: 12, costPerTree: 55, sponsoredCount: 5, img: 'https://images.unsplash.com/photo-1627324035919-5b58332a67e1?auto=format&fit=crop&w=400&q=80' },
+                    { id: 'sumac', quantity: 10, costPerTree: 45, sponsoredCount: 3, img: 'https://images.unsplash.com/photo-1570481662006-a3a1374699d8?auto=format&fit=crop&w=400&q=80' },
+                    { id: 'pistachio', quantity: 10, costPerTree: 60, sponsoredCount: 10, img: 'https://images.unsplash.com/photo-1544787219-7f47ccb5a8c9?auto=format&fit=crop&w=400&q=80' },
+                    { id: 'cypress', quantity: 1, costPerTree: 100, sponsoredCount: 1, img: 'https://images.unsplash.com/photo-1596461404969-9d24c3fdd0c4?auto=format&fit=crop&w=400&q=80' },
+                ]
+                // --- END OF CHANGE ---
+            },
+            ru: {
+                nav: { about: "О проекте", trees: "Деревья", events: "События", help: "Поддержать", materials: "Материалы", team: "Команда", contacts: "Контакты" },
+                hero: { title: "Arsenal Garden", subtitle: "Сажаем сад на Арсенальной горе", date: "19 октября 2025 года, воскресенье", button: "Узнать больше" },
+                about: {
+                    title: "О проекте",
+                    items: [
+                        { title: "Место", text: "Арсенальная гора — это 70 гектаров природы в сердце Тбилиси. В 1990-е годы, во времена трудностей, многие деревья здесь были вырублены, и гора утратила часть своей зелени. С тех пор она остаётся диким пространством — местом прогулок, тишины и встреч с природой.\n\nСегодня Арсенальная гора хранит память об утраченных деревьях и одновременно открывает новое будущее. Здесь может появиться сад — живое пространство для людей и для города. Каждое новое дерево возвращает горе силу, а нам — возможность почувствовать её красоту по-новому." },
+                        { title: "Наше видение", text: "Мы верим, что Арсенальная гора может стать местом силы — не только природным, но и культурным. Здесь мы создаём пространство, где природа, искусство и люди соединяются. Каждое посаженное дерево — шаг к саду, который живёт вместе с городом." },
+                        { title: "Сад как ленд-арт", text: "Мы видим сад не только как зелёное пространство, но и как художественный жест. Его форма и структура будут напоминать, что природа может быть искусством, а искусство — частью природы. Сад будет меняться с сезонами, раскрываясь то цветением, то красками осени, и становиться живым произведением, созданным вместе с людьми и для людей." },
+                        { title: "Сообщество", text: "Для нас важно не только, какие деревья растут, но и кто их сажает. Мы объединяем соседей, друзей, гостей Тбилиси и всех, кто хочет заботиться о природе. Сад становится пространством встреч и общего дела, где каждый оставляет свой след." },
+                        { title: "Экология", text: "Каждое дерево — это вклад в воздух, в почву, в климат города. Мы возвращаем Арсенальной горе зелень, которая когда-то здесь была. Это маленький шаг для Тбилиси, но часть большой заботы о планете: мы выбираем жизнь и рост вместо пустоты." }
+                    ]
+                },
+                slider: [
+                    { img: "https://images.unsplash.com/photo-1615485500608-2f6c6f2a0135?auto=format&fit=crop&w=1200&q=80", title: "Миндаль", desc: "Первым встречает весну бело-розовым облаком цветов." },
+                    { img: "https://images.unsplash.com/photo-1455659817273-f96807779a8a?auto=format&fit=crop&w=1200&q=80", title: "Айва и яблоня", desc: "Продолжают цветение в апреле, наполняя сад нежными оттенками." },
+                    { img: "https://images.unsplash.com/photo-1597834377643-2e3f6e7e0e32?auto=format&fit=crop&w=1200&q=80", title: "Павловния", desc: "В начале лета раскрывается фиолетовыми колокольчиками." },
+                    { img: "https://images.unsplash.com/photo-1597848212620-4f5bb2a24c34?auto=format&fit=crop&w=1200&q=80", title: "Тамарикс", desc: "Добавляет лёгкие розовые перья в июне." },
+                    { img: "https://images.unsplash.com/photo-1627324035919-5b58332a67e1?auto=format&fit=crop&w=1200&q=80", title: "Гранат", desc: "Загорается красными цветами и плодами в середине лета." },
+                    { img: "https://images.unsplash.com/photo-1570481662006-a3a1374699d8?auto=format&fit=crop&w=1200&q=80", title: "Скумпия", desc: "Создаёт «дымчатые облака» и вспыхивает осенью красными листьями." },
+                    { img: "https://images.unsplash.com/photo-1544787219-7f47ccb5a8c9?auto=format&fit=crop&w=1200&q=80", title: "Фисташка", desc: "Уходит в золотисто-оранжевую гамму в октябре." },
+                    { img: "https://images.unsplash.com/photo-1596461404969-9d24c3fdd0c4?auto=format&fit=crop&w=1200&q=80", title: "Кипарис", desc: "Остаётся вечнозелёным символом устойчивости и центра сада." },
+                ],
+                events: {
+                    title: "События",
+                    items: [
+                        { title: "Экскурсии по горе", desc: "Каждую субботу мы приглашаем на прогулку по Арсенальной горе. Это возможность увидеть дикий уголок Тбилиси, узнать о его истории и природе, а также почувствовать, каким живым может быть это пространство. Напишите, если хотите принять в этом участие." },
+                        { title: "Прошлые ивенты", desc: "За последние два года мы провели здесь пять больших событий: музыкальные выступления под открытым небом, выставки и перформансы. Эти встречи показали, что Арсенальная гора может быть местом культуры и вдохновения. Как это проходило можно посмотреть у нас в инстаграме." },
+                        { title: "Субботники", desc: "Мы верим, что забота о месте начинается с маленьких шагов. В прошлом году мы организовали три больших субботника: вместе убирали мусор, расчищали тропинки и возвращали жизни уголкам горы. Для нас это не только работа, но и способ быть сообществом." }
+                    ]
+                },
+                help: {
+                    title: "Как помочь",
+                    intro: "Arsenal Garden растёт благодаря людям. У каждого есть возможность стать частью этого сада — выбрать свой способ поддержки и вложить в него частичку себя.",
+                    card1: { title: "Деньгами", desc: "Один саженец стоит примерно 50 GEL. Каждое пожертвование — это новое дерево, которое будет расти на Арсенальной горе.", details: "Credo bank\nGE38CD0360000050136558\nAleksandr Savin\n\nОзон банк (для российских карт)\n+79296777333\n\nКрипто-кошелёк (TRC20)\nTFkojYpj518hR7NuwNdtCz5o8UTMBbwSrV" },
+                    card2: { title: "Волонтёрством", desc: "Можно прийти на посадку, помочь ухаживать за деревьями, фотографировать или освещать проект в медиа. Любая помощь делает сад живым.", button: "Связаться с нами" },
+                    card3: { title: "Партнёрством", desc: "Мы открыты к сотрудничеству с НКО, бизнесом и медиа. Вместе мы можем придать проекту новый масштаб и силу.", button: "Обсудить сотрудничество" }
+                },
+                map: {
+                    title: "Интерактивная карта сада",
+                    desc: "Подсвеченные деревья, когда на них собраны средства.",
+                    goal: "Цель: {count} деревьев",
+                    transparency: "Для прозрачности мы ведём таблицу со всеми переводами. Так каждый может убедиться в том, что деньги учтены в общем сборе."
+                },
+                materials: {
+                    title: "Материалы",
+                    intro: "Мы собираем знания и вдохновение о городской экологии, урбанистике и искусстве.",
+                    items: [
+                        { title: "Природа и экология", points: ["Почему зелёные оазисы снижают температуру в городе.", "Как деревья влияют на качество воздуха и здоровье горожан.", "Грузинские примеры восстановления зелёных территорий (Дигомские луга, парк Лиси и др.)."] },
+                        { title: "Урбанистика", points: ["Освоение заброшенных пространств: как «ничейные земли» могут стать общественными парками.", "Истории трансформации пустырей в городах (Берлин, Тбилиси, Нью-Йорк).", "Роль сообществ: почему парки рождаются «снизу»."] },
+                        { title: "Искусство и ленд-арт", points: ["Что такое ленд-арт: примеры из мира и из Грузии.", "Природа как пространство искусства: от Роберта Смитсона до современных эко-проектов.", "Почему сад может быть не только благоустройством, но и художественным высказыванием."] },
+                    ]
+                },
+                team: {
+                    title: "Команда",
+                    members: [
+                        { img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80", name: "Александр Савин", role: "Основатель проекта" },
+                        { img: "https://images.unsplash.com/photo-1552058544-f2b08422138a?auto=format&fit=crop&w=300&q=80", name: "Мария Иванова", role: "Координатор волонтеров" },
+                        { img: "https://images.unsplash.com/photo-1567532939604-b6b5b0db1604?auto=format&fit=crop&w=300&q=80", name: "Нино Циклаури", role: "Ландшафтный дизайнер" },
+                        { img: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=300&q=80", name: "Давид Беридзе", role: "PR-менеджер" },
+                    ]
+                },
+                contacts: {
+                    title: "Контакты",
+                    heading: "Свяжитесь с нами",
+                    desc: "Если у вас есть вопросы или предложения, напишите нам — мы всегда открыты к общению.",
+                    locationName: "Арсенальная гора",
+                    locationAddress: "Тбилиси, Грузия",
+                    mapLocation: "Мы находимся здесь",
+                    form: { title: "Форма обратной связи", name: "Имя", email: "Email", message: "Сообщение", button: "Отправить" }
+                },
+                footer: { motto: "Сажаем сад на Арсенальной горе." },
+                // --- START OF CHANGE: New language-specific tree data ---
+                treeCategories: {
+                    almond: { name: 'Миндаль', desc: 'Первым встречает весну бело-розовым облаком цветов, символизируя новое начало.' },
+                    quince: { name: 'Айва', desc: 'Продолжает цветение в апреле, наполняя сад нежными оттенками и ароматом.' },
+                    pomegranate: { name: 'Гранат', desc: 'Загорается красными цветами и плодами, символ жизни и плодородия.' },
+                    sumac: { name: 'Скумпия', desc: 'Создаёт «дымчатые облака» и вспыхивает осенью красными листьями.' },
+                    pistachio: { name: 'Фисташка', desc: 'Уходит в золотисто-оранжевую гамму в октябре, даря тепло.' },
+                    cypress: { name: 'Кипарис', desc: 'Вечнозелёный символ стойкости и центральный элемент нашего сада.' }
+                },
+                countdownLabels: { days: "Дней", hours: "Часов", minutes: "Минут", seconds: "Секунд" }
+                // --- END OF CHANGE ---
+            },
+            en: {
+                nav: { about: "About", trees: "Trees", events: "Events", help: "Support", materials: "Materials", team: "Team", contacts: "Contacts" },
+                hero: { title: "Arsenal Garden", subtitle: "Planting a garden on Arsenal Mountain", date: "October 19, 2025, Sunday", button: "Learn More" },
+                about: {
+                    title: "About the Project",
+                    items: [
+                         { title: "The Place", text: "Arsenal Mountain is 70 hectares of nature in the heart of Tbilisi. In the 1990s, during difficult times, many trees here were cut down, and the mountain lost part of its greenery. Since then, it has remained a wild space — a place for walks, silence, and encounters with nature.\n\nToday, Arsenal Mountain holds the memory of the lost trees while simultaneously opening up a new future. A garden can emerge here — a living space for people and the city. Each new tree restores the mountain's strength and gives us the opportunity to experience its beauty anew." },
+                         { title: "Our Vision", text: "We believe that Arsenal Mountain can become a place of power — not only natural but also cultural. Here, we are creating a space where nature, art, and people connect. Every tree planted is a step towards a garden that lives with the city." },
+                         { title: "The Garden as Land Art", text: "We see the garden not just as a green space, but as an artistic gesture. Its form and structure will remind us that nature can be art, and art can be part of nature. The garden will change with the seasons, revealing itself through blossoms or autumn colors, becoming a living work of art created with and for people." },
+                         { title: "Community", text: "For us, it's not just about what trees grow, but who plants them. We unite neighbors, friends, guests of Tbilisi, and everyone who wants to care for nature. The garden becomes a space for meetings and common purpose, where everyone leaves their mark." },
+                         { title: "Ecology", text: "Every tree is a contribution to the air, the soil, and the city's climate. We are returning the greenery that once was here to Arsenal Mountain. It's a small step for Tbilisi, but part of a larger care for the planet: we choose life and growth over emptiness." },
+                    ]
+                },
+                slider: [
+                    { img: "https://images.unsplash.com/photo-1615485500608-2f6c6f2a0135?auto=format&fit=crop&w=1200&q=80", title: "Almond", desc: "The first to greet spring with a white-pink cloud of flowers." },
+                    { img: "https://images.unsplash.com/photo-1455659817273-f96807779a8a?auto=format&fit=crop&w=1200&q=80", title: "Quince & Apple", desc: "Continue to bloom in April, filling the garden with delicate shades." },
+                    { img: "https://images.unsplash.com/photo-1597834377643-2e3f6e7e0e32?auto=format&fit=crop&w=1200&q=80", title: "Paulownia", desc: "Opens with purple bells at the beginning of summer." },
+                    { img: "https://images.unsplash.com/photo-1597848212620-4f5bb2a24c34?auto=format&fit=crop&w=1200&q=80", title: "Tamarisk", desc: "Adds light pink feathers in June." },
+                    { img: "https://images.unsplash.com/photo-1627324035919-5b58332a67e1?auto=format&fit=crop&w=1200&q=80", title: "Pomegranate", desc: "Lights up with red flowers and fruits in mid-summer." },
+                    { img: "https://images.unsplash.com/photo-1570481662006-a3a1374699d8?auto=format&fit=crop&w=1200&q=80", title: "Sumac", desc: "Creates 'smoke clouds' and bursts with red leaves in autumn." },
+                    { img: "https://images.unsplash.com/photo-1544787219-7f47ccb5a8c9?auto=format&fit=crop&w=1200&q=80", title: "Pistachio", desc: "Transitions to a golden-orange palette in October." },
+                    { img: "https://images.unsplash.com/photo-1596461404969-9d24c3fdd0c4?auto=format&fit=crop&w=1200&q=80", title: "Cypress", desc: "Remains an evergreen symbol of resilience and the garden's center." },
+                ],
+                events: {
+                    title: "Events",
+                    items: [
+                        { title: "Mountain Tours", desc: "Every Saturday, we invite you for a walk on Arsenal Mountain. It's an opportunity to see a wild corner of Tbilisi, learn about its history and nature, and feel how alive this space can be. Write to us if you want to participate." },
+                        { title: "Past Events", desc: "Over the last two years, we held five major events here: open-air music performances, exhibitions, and performances. These gatherings showed that Arsenal Mountain can be a place of culture and inspiration. You can see how it went on our Instagram." },
+                        { title: "Clean-up Days", desc: "We believe that caring for a place begins with small steps. Last year, we organized three major clean-ups: together we removed trash, cleared paths, and brought life back to corners of the mountain. For us, it's not just work, but a way of being a community." }
+                    ]
+                },
+                help: {
+                    title: "How to Help",
+                    intro: "Arsenal Garden grows thanks to people. Everyone has the opportunity to become part of this garden—choose your way to support it and contribute a piece of yourself.",
+                    card1: { title: "With Money", desc: "One seedling costs about 50 GEL. Every donation is a new tree that will grow on Arsenal Mountain.", details: "Credo bank\nGE38CD0360000050136558\nAleksandr Savin\n\nOzon bank (for Russian cards)\n+79296777333\n\nCrypto-wallet (TRC20)\nTFkojYpj518hR7NuwNdtCz5o8UTMBbwSrV" },
+                    card2: { title: "By Volunteering", desc: "You can come to plant, help care for the trees, take photos, or cover the project in the media. Any help makes the garden alive.", button: "Contact Us" },
+                    card3: { title: "Through Partnership", desc: "We are open to collaboration with NGOs, businesses, and the media. Together, we can give the project a new scale and strength.", button: "Discuss Partnership" }
+                },
+                map: {
+                    title: "Interactive Garden Map",
+                    desc: "Sponsored trees are highlighted when funds are collected for them.",
+                    goal: "Goal: {count} trees",
+                    transparency: "For transparency, we maintain a table with all transfers. This way, everyone can be sure that the money is accounted for in the general collection."
+                },
+                materials: {
+                    title: "Materials",
+                    intro: "We gather knowledge and inspiration about urban ecology, urbanism, and art.",
+                    items: [
+                        { title: "Nature and Ecology", points: ["Why green oases lower the temperature in the city.", "How trees affect air quality and citizens' health.", "Georgian examples of green area restoration (Digomi Meadows, Lisi Park, etc.)."] },
+                        { title: "Urbanism", points: ["Reclaiming abandoned spaces: how 'no man's lands' can become public parks.", "Stories of wasteland transformation in cities (Berlin, Tbilisi, New York).", "The role of communities: why parks are born 'from the bottom up'."] },
+                        { title: "Art and Land Art", points: ["What is land art: examples from around the world and from Georgia.", "Nature as a space for art: from Robert Smithson to contemporary eco-projects.", "Why a garden can be not just landscaping, but also an artistic statement."] }
+                    ]
+                },
+                team: {
+                    title: "Our Team",
+                    members: [
+                        { img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80", name: "Aleksandr Savin", role: "Project Founder" },
+                        { img: "https://images.unsplash.com/photo-1552058544-f2b08422138a?auto=format&fit=crop&w=300&q=80", name: "Maria Ivanova", role: "Volunteer Coordinator" },
+                        { img: "https://images.unsplash.com/photo-1567532939604-b6b5b0db1604?auto=format&fit=crop&w=300&q=80", name: "Nino Tsiklauri", role: "Landscape Designer" },
+                        { img: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=300&q=80", name: "David Beridze", role: "PR Manager" },
+                    ]
+                },
+                contacts: {
+                    title: "Contacts",
+                    heading: "Get in Touch",
+                    desc: "If you have questions or suggestions, write to us — we are always open to communication.",
+                    locationName: "Arsenal Mountain",
+                    locationAddress: "Tbilisi, Georgia",
+                    mapLocation: "We are here",
+                    form: { title: "Feedback Form", name: "Name", email: "Email", message: "Message", button: "Send" }
+                },
+                footer: { motto: "Planting a garden on Arsenal Mountain." },
+                treeCategories: {
+                    almond: { name: 'Almond', desc: 'The first to greet spring with a white-pink cloud of flowers, symbolizing a new beginning.' },
+                    quince: { name: 'Quince', desc: 'Continues to bloom in April, filling the garden with delicate shades and fragrance.' },
+                    pomegranate: { name: 'Pomegranate', desc: 'Lights up with red flowers and fruits, a symbol of life and fertility.' },
+                    sumac: { name: 'Sumac', desc: 'Creates "smoke clouds" and bursts with red leaves in autumn.' },
+                    pistachio: { name: 'Pistachio', desc: 'Transitions to a golden-orange palette in October, bringing warmth.' },
+                    cypress: { name: 'Cypress', desc: 'An evergreen symbol of resilience and the central element of our garden.' }
+                },
+                countdownLabels: { days: "Days", hours: "Hours", minutes: "Minutes", seconds: "Seconds" }
+            },
+            ge: {
+                nav: { about: "პროექტის შესახებ", trees: "ხეები", events: "ღონისძიებები", help: "მხარდაჭერა", materials: "მასალები", team: "გუნდი", contacts: "კონტაქტები" },
+                hero: { title: "არსენალის ბაღი", subtitle: "ჩვენ ვრგავთ ბაღს არსენალის მთაზე", date: "2025 წლის 19 ოქტომბერი, კვირა", button: "გაიგეთ მეტი" },
+                about: {
+                    title: "პროექტის შესახებ",
+                    items: [
+                        { title: "ადგილი", text: "არსენალის მთა — 70 ჰექტარი ბუნება თბილისის გულში. 1990-იან წლებში, რთულ დროს, აქ ბევრი ხე მოიჭრა და მთამ დაკარგა თავისი სიმწვანის ნაწილი. მას შემდეგ ის რჩება ველურ სივრცედ — სასეირნო, სიჩუმისა და ბუნებასთან შეხვედრის ადგილი.\n\nდღეს არსენალის მთა ინახავს დაკარგული ხეების ხსოვნას და ამავდროულად ხსნის ახალ მომავალს. აქ შეიძლება გაჩნდეს ბაღი — ცოცხალი სივრცე ადამიანებისა და ქალაქისთვის. ყოველი ახალი ხე მთას ძალას უბრუნებს, ჩვენ კი — მისი სილამაზის ხელახლა შეგრძნების შესაძლებლობას." },
+                        { title: "ჩვენი ხედვა", text: "ჩვენ გვჯერა, რომ არსენალის მთა შეიძლება გახდეს ძალის ადგილი — არა მხოლოდ ბუნებრივი, არამედ კულტურულიც. აქ ჩვენ ვქმნით სივრცეს, სადაც ბუნება, ხელოვნება და ადამიანები ერთიანდებიან. ყოველი დარგული ხე — ნაბიჯია ბაღისკენ, რომელიც ქალაქთან ერთად ცოცხლობს." },
+                        { title: "ბაღი, როგორც ლენდ-არტი", text: "ჩვენ ბაღს ვხედავთ არა მხოლოდ როგორც მწვანე სივრცეს, არამედ როგორც მხატვრულ ჟესტს. მისი ფორმა და სტრუქტურა შეგვახსენებს, რომ ბუნება შეიძლება იყოს ხელოვნება, ხოლო ხელოვნება — ბუნების ნაწილი. ბაღი სეზონების მიხედვით შეიცვლება, ხან ყვავილობით, ხან შემოდგომის ფერებით გამოვლინდება და გახდება ცოცხალი ნამუშევარი, შექმნილი ადამიანებთან ერთად და ადამიანებისთვის." },
+                        { title: "საზოგადოება", text: "ჩვენთვის მნიშვნელოვანია არა მხოლოდ ის, თუ რა ხეები იზრდება, არამედ ისიც, თუ ვინ რგავს მათ. ჩვენ ვაერთიანებთ მეზობლებს, მეგობრებს, თბილისის სტუმრებს და ყველას, ვისაც ბუნებაზე ზრუნვა სურს. ბაღი ხდება შეხვედრებისა და საერთო საქმის სივრცე, სადაც ყველა თავის კვალს ტოვებს." },
+                        { title: "ეკოლოგია", text: "ყოველი ხე — წვლილია ჰაერში, ნიადაგში, ქალაქის კლიმატში. ჩვენ არსენალის მთას ვუბრუნებთ სიმწვანეს, რომელიც ოდესღაც აქ იყო. ეს პატარა ნაბიჯია თბილისისთვის, მაგრამ პლანეტაზე ზრუნვის დიდი ნაწილის: ჩვენ ვირჩევთ სიცოცხლესა და ზრდას სიცარიელის ნაცვლად." },
+                    ]
+                },
+                slider: [
+                    { img: "https://images.unsplash.com/photo-1615485500608-2f6c6f2a0135?auto=format&fit=crop&w=1200&q=80", title: "ნუში", desc: "პირველი ხვდება გაზაფხულს თეთრი-ვარდისფერი ყვავილების ღრუბლით." },
+                    { img: "https://images.unsplash.com/photo-1455659817273-f96807779a8a?auto=format&fit=crop&w=1200&q=80", title: "კომში და ვაშლი", desc: "აგრძელებენ ყვავილობას აპრილში და ბაღს ნაზი ფერებით ავსებენ." },
+                    { img: "https://images.unsplash.com/photo-1597834377643-2e3f6e7e0e32?auto=format&fit=crop&w=1200&q=80", title: "პავლოვნია", desc: "ზაფხულის დასაწყისში იასამნისფერი ზარებით იშლება." },
+                    { img: "https://images.unsplash.com/photo-1597848212620-4f5bb2a24c34?auto=format&fit=crop&w=1200&q=80", title: "ივანის-ხე", desc: "ივნისში ღია ვარდისფერ ბუმბულებს ამატებს." },
+                    { img: "https://images.unsplash.com/photo-1627324035919-5b58332a67e1?auto=format&fit=crop&w=1200&q=80", title: "ბროწეული", desc: "ზაფხულის შუაში წითელი ყვავილებით და ნაყოფით ინთება." },
+                    { img: "https://images.unsplash.com/photo-1570481662006-a3a1374699d8?auto=format&fit=crop&w=1200&q=80", title: "სუმაკი", desc: "ქმნის „კვამლის ღრუბლებს“ და შემოდგომაზე წითელი ფოთლებით იფეთქებს." },
+                    { img: "https://images.unsplash.com/photo-1544787219-7f47ccb5a8c9?auto=format&fit=crop&w=1200&q=80", title: "ფისტა", desc: "ოქტომბერში ოქროსფერ-ნარინჯისფერ გამაში გადადის." },
+                    { img: "https://images.unsplash.com/photo-1596461404969-9d24c3fdd0c4?auto=format&fit=crop&w=1200&q=80", title: "კვიპაროსი", desc: "რჩება მარადმწვანე სიმბოლოდ მდგრადობისა და ბაღის ცენტრისა." },
+                ],
+                events: {
+                    title: "ღონისძიებები",
+                    items: [
+                        { title: "ექსკურსიები მთაზე", desc: "ყოველ შაბათს გეპატიჟებით არსენალის მთაზე სასეირნოდ. ეს არის შესაძლებლობა, ნახოთ თბილისის ველური კუთხე, გაიგოთ მისი ისტორია და ბუნება, და იგრძნოთ, რამდენად ცოცხალი შეიძლება იყოს ეს სივრცე. მოგვწერეთ, თუ გსურთ მონაწილეობა." },
+                        { title: "წინა ღონისძიებები", desc: "ბოლო ორი წლის განმავლობაში აქ ხუთი დიდი ღონისძიება ჩავატარეთ: მუსიკალური გამოსვლები ღია ცის ქვეშ, გამოფენები და პერფორმანსები. ამ შეხვედრებმა აჩვენა, რომ არსენალის მთა შეიძლება იყოს კულტურისა და შთაგონების ადგილი. როგორ ჩაიარა, შეგიძლიათ ნახოთ ჩვენს ინსტაგრამზე." },
+                        { title: "შაბათობები", desc: "ჩვენ გვჯერა, რომ ადგილზე ზრუნვა პატარა ნაბიჯებით იწყება. გასულ წელს სამი დიდი შაბათობა მოვაწყვეთ: ერთად დავასუფთავეთ ნაგავი, გავწმინდეთ ბილიკები და დავუბრუნეთ სიცოცხლე მთის კუთხეებს. ჩვენთვის ეს არა მხოლოდ სამუშაოა, არამედ საზოგადოების ყოფნის საშუალებაც." }
+                    ]
+                },
+                help: {
+                    title: "როგორ დავეხმაროთ",
+                    intro: "არსენალის ბაღი ადამიანების წყალობით იზრდება. ყველას აქვს შესაძლებლობა, გახდეს ამ ბაღის ნაწილი — აირჩიოს მხარდაჭერის საკუთარი გზა და ჩადოს მასში საკუთარი წვლილი.",
+                    card1: { title: "ფულით", desc: "ერთი ნერგი დაახლოებით 50 ლარი ღირს. ყოველი შემოწირულობა ახალი ხეა, რომელიც არსენალის მთაზე გაიზრდება.", details: "Credo bank\nGE38CD0360000050136558\nAleksandr Savin\n\nOzon bank (რუსული ბარათებისთვის)\n+79296777333\n\nკრიპტო-საფულე (TRC20)\nTFkojYpj518hR7NuwNdtCz5o8UTMBbwSrV" },
+                    card2: { title: "მოხალისეობით", desc: "შეგიძლიათ მოხვიდეთ დარგვაზე, დაეხმაროთ ხეების მოვლაში, გადაიღოთ ფოტოები ან გააშუქოთ პროექტი მედიაში. ნებისმიერი დახმარება ბაღს აცოცხლებს.", button: "დაგვიკავშირდით" },
+                    card3: { title: "პარტნიორობით", desc: "ჩვენ ღია ვართ თანამშრომლობისთვის არასამთავრობო ორგანიზაციებთან, ბიზნესთან და მედიასთან. ერთად შეგვიძლია პროექტს ახალი მასშტაბი და ძალა მივცეთ.", button: "განვიხილოთ პარტნიორობა" }
+                },
+                map: {
+                    title: "ბაღის ინტერაქტიული რუკა",
+                    desc: "დაფინანსებული ხეები ნაჩვენებია, როდესაც მათთვის თანხა შეგროვდება.",
+                    goal: "მიზანი: {count} ხე",
+                    transparency: "გამჭვირვალობისთვის, ჩვენ ვაწარმოებთ ყველა გადარიცხვის ცხრილს. ასე რომ, ყველას შეუძლია დარწმუნდეს, რომ ფული გათვალისწინებულია საერთო შეგროვებაში."
+                },
+                materials: {
+                    title: "მასალები",
+                    intro: "ჩვენ ვაგროვებთ ცოდნას და შთაგონებას ქალაქის ეკოლოგიის, ურბანისტიკისა და ხელოვნების შესახებ.",
+                    items: [
+                        { title: "ბუნება და ეკოლოგია", points: ["რატომ ამცირებენ მწვანე ოაზისები ქალაქში ტემპერატურას.", "როგორ მოქმედებს ხეები ჰაერის ხარისხსა და მოქალაქეების ჯანმრთელობაზე.", "საქართველოს მწვანე ტერიტორიების აღდგენის მაგალითები (დიღმის ჭალები, ლისის პარკი და ა.შ.)."] },
+                        { title: "ურბანისტიკა", points: ["მიტოვებული სივრცეების ათვისება: როგორ შეიძლება „არავის მიწები“ გახდეს საზოგადოებრივი პარკები.", "ქალაქებში უდაბნოების ტრანსფორმაციის ისტორიები (ბერლინი, თბილისი, ნიუ-იორკი).", "საზოგადოების როლი: რატომ იბადებიან პარკები „ქვემოდან“."] },
+                        { title: "ხელოვნება და ლენდ-არტი", points: ["რა არის ლენდ-არტი: მაგალითები მსოფლიოდან და საქართველოდან.", "ბუნება, როგორც ხელოვნების სივრცე: რობერტ სმითსონიდან თანამედროვე ეკო-პროექტებამდე.", "რატომ შეიძლება ბაღი იყოს არა მხოლოდ კეთილმოწყობა, არამედ მხატვრული გამოხატულებაც."] }
+                    ]
+                },
+                team: {
+                    title: "ჩვენი გუნდი",
+                    members: [
+                        { img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80", name: "ალექსანდრე სავინი", role: "პროექტის დამფუძნებელი" },
+                        { img: "https://images.unsplash.com/photo-1552058544-f2b08422138a?auto=format&fit=crop&w=300&q=80", name: "მარია ივანოვა", role: "მოხალისეთა კოორდინატორი" },
+                        { img: "https://images.unsplash.com/photo-1567532939604-b6b5b0db1604?auto=format&fit=crop&w=300&q=80", name: "ნინო წიკლაური", role: "ლანდშაფტის დიზაინერი" },
+                        { img: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=300&q=80", name: "დავით ბერიძე", role: "პიარ მენეჯერი" },
+                    ]
+                },
+                contacts: {
+                    title: "კონტაქტები",
+                    heading: "დაგვიკავშირდით",
+                    desc: "თუ გაქვთ კითხვები ან წინადადებები, მოგვწერეთ — ჩვენ ყოველთვის ღია ვართ კომუნიკაციისთვის.",
+                    locationName: "არსენალის მთა",
+                    locationAddress: "თბილისი, საქართველო",
+                    mapLocation: "ჩვენ აქ ვართ",
+                    form: { title: "უკუკავშირის ფორმა", name: "სახელი", email: "ელ.ფოსტა", message: "შეტყობინება", button: "გაგზავნა" }
+                },
+                footer: { motto: "ჩვენ ვრგავთ ბაღს არსენალის მთაზე." },
+                 treeCategories: {
+                    almond: { name: 'ნუში', desc: 'პირველი ხვდება გაზაფხულს თეთრი-ვარდისფერი ყვავილების ღრუბლით, რაც ახალი დასაწყისის სიმბოლოა.' },
+                    quince: { name: 'კომში', desc: 'აგრძელებს ყვავილობას აპრილში, ბაღს ნაზი ფერებითა და სურნელით ავსებს.' },
+                    pomegranate: { name: 'ბროწეული', desc: 'ინთება წითელი ყვავილებით და ნაყოფით, სიცოცხლისა და ნაყოფიერების სიმბოლო.' },
+                    sumac: { name: 'სუმაკი', desc: 'ქმნის „კვამლის ღრუბლებს“ და შემოდგომაზე წითელი ფოთლებით იფეთქებს.' },
+                    pistachio: { name: 'ფისტა', desc: 'ოქტომბერში ოქროსფერ-ნარინჯისფერ გამაში გადადის და სითბოს გვჩუქნის.' },
+                    cypress: { name: 'კვიპაროსი', desc: 'მარადმწვანე სიმბოლო მდგრადობისა და ჩვენი ბაღის ცენტრალური ელემენტი.' }
+                },
+                countdownLabels: { days: "დღე", hours: "საათი", minutes: "წუთი", seconds: "წამი" }
+            }
+        };
+
+        let siteData;
+        let currentLang = 'ru';
+        let currentAdminSection = 'hero';
+        let currentAdminLang = 'ru';
+        let isDirty = false;
+        let adminNotifications;
+        let countdownInterval;
+        
+        const deepCopy = (obj) => JSON.parse(JSON.stringify(obj));
+
+        function renderPage() {
+            const data = siteData[currentLang];
+            const globalData = siteData.global;
+
+            // --- START OF ADDITION: Countdown Timer Logic ---
+            if (countdownInterval) clearInterval(countdownInterval);
+            const countdownContainer = document.getElementById('countdown-timer');
+            const targetDate = new Date(globalData.eventDate).getTime();
+
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+
+                if (distance < 0) {
+                    countdownContainer.innerHTML = `<p>${data.hero.date}</p>`; // Show past date if event passed
+                    clearInterval(countdownInterval);
+                    return;
+                }
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                countdownContainer.innerHTML = `
+                    <div class="countdown-item"><span class="countdown-number">${days}</span><span class="countdown-label">${data.countdownLabels.days}</span></div>
+                    <div class="countdown-item"><span class="countdown-number">${hours}</span><span class="countdown-label">${data.countdownLabels.hours}</span></div>
+                    <div class="countdown-item"><span class="countdown-number">${minutes}</span><span class="countdown-label">${data.countdownLabels.minutes}</span></div>
+                    <div class="countdown-item"><span class="countdown-number">${seconds}</span><span class="countdown-label">${data.countdownLabels.seconds}</span></div>
+                `;
+            }
+            updateCountdown();
+            countdownInterval = setInterval(updateCountdown, 1000);
+            // --- END OF ADDITION ---
+            
+            document.querySelectorAll('[data-i18n-key]').forEach(el => {
+                const key = el.dataset.i18nKey;
+                const keys = key.split('.');
+                let value = keys.reduce((obj, k) => (obj && obj[k] !== 'undefined') ? obj[k] : null, data);
+                if (value !== null) {
+                    // Recalculate total trees for map goal text
+                    if (key === 'map.goal') {
+                       const totalTrees = globalData.treeCategories.reduce((sum, cat) => sum + cat.quantity, 0);
+                       value = value.replace('{count}', totalTrees);
+                    }
+                    if (el.tagName === 'P' || (el.tagName === 'H4' && key === 'map.goal')) {
+                        el.innerHTML = String(value).replace(/\n/g, '<br>');
+                    } else {
+                        el.textContent = value;
+                    }
+                }
+            });
+            
+            document.getElementById('help-card1-details').textContent = data.help.card1.details;
+            
+            const navMenu = document.getElementById('nav-menu');
+            navMenu.innerHTML = Object.entries(data.nav).map(([key, value]) => `<li><a href="#${key}">${value}</a></li>`).join('');
+
+            const aboutWrapper = document.getElementById('about-content-wrapper');
+            aboutWrapper.innerHTML = data.about.items.map(item => `
+                <div class="about-item">
+                    <h3>${item.title}</h3>
+                    <p>${item.text.replace(/\n/g, '<br>')}</p>
+                </div>
+            `).join('');
+
+            const sliderWrapper = document.getElementById('trees-slider-wrapper');
+            sliderWrapper.innerHTML = data.slider.map((slide, index) => `
+                <div class="slide ${index === 0 ? 'active' : ''}" style="background-image: url('${slide.img}');">
+                    <div class="slide-content"><h3>${slide.title}</h3><p>${slide.desc}</p></div>
+                </div>
+            `).join('');
+            initTreeSlider();
+
+            const eventsWrapper = document.getElementById('events-timeline-wrapper');
+            eventsWrapper.innerHTML = data.events.items.map(item => `
+                <div class="event-item fade-in"><h3>${item.title}</h3><p>${item.desc}</p></div>
+            `).join('');
+            
+            const materialsWrapper = document.getElementById('materials-accordion-wrapper');
+            materialsWrapper.innerHTML = data.materials.items.map(item => `
+                <details class="material-item">
+                    <summary>${item.title}</summary>
+                    <div class="material-content"><ul>${item.points.map(p => `<li>${p}</li>`).join('')}</ul></div>
+                </details>
+            `).join('');
+            
+            const teamWrapper = document.getElementById('team-grid-wrapper');
+            teamWrapper.innerHTML = data.team.members.map(member => `
+                 <div class="team-member fade-in">
+                    <img src="${member.img}" alt="${member.name}" class="team-img">
+                    <h3>${member.name}</h3>
+                    <p>${member.role}</p>
+                </div>
+            `).join('');
+            
+            const socialWrapper = document.getElementById('social-links-wrapper');
+            socialWrapper.innerHTML = `
+                <a href="${globalData.socials.instagram}" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="${globalData.socials.telegram}" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+                <a href="${globalData.socials.email}" aria-label="Email"><i class="far fa-envelope"></i></a>
+            `;
+            
+            document.getElementById('google-map-iframe').src = globalData.mapIframeSrc;
+            renderMap();
+        }
+        
+        // --- START OF CHANGE: Rewritten renderMap function for categories ---
+        function renderMap() {
+            const globalData = siteData.global;
+            const totalTrees = globalData.treeCategories.reduce((sum, cat) => sum + cat.quantity, 0);
+            const totalSponsored = globalData.treeCategories.reduce((sum, cat) => sum + cat.sponsoredCount, 0);
+
+            const mapGrid = document.getElementById('map-grid');
+            mapGrid.innerHTML = '';
+            
+            const categoriesToDisplay = globalData.treeCategories.filter(cat => cat.id !== 'cypress');
+            let iconCounter = 0;
+
+            for (let i = 0; i < 63; i++) {
+                if (i === 31) { // Central cypress position
+                    const cypressData = globalData.treeCategories.find(cat => cat.id === 'cypress');
+                    if (cypressData) {
+                        const isSponsored = cypressData.sponsoredCount >= cypressData.quantity;
+                        const iconEl = document.createElement('div');
+                        iconEl.className = 'map-category-icon cypress';
+                        if (isSponsored) iconEl.classList.add('sponsored');
+                        iconEl.dataset.categoryId = 'cypress';
+                        iconEl.innerHTML = `<i class="fas fa-tree"></i>`;
+                        mapGrid.appendChild(iconEl);
+                    }
+                } else {
+                    if (iconCounter < categoriesToDisplay.length) {
+                        const categoryData = categoriesToDisplay[iconCounter];
+                        const isSponsored = categoryData.sponsoredCount >= categoryData.quantity;
+                        const iconEl = document.createElement('div');
+                        iconEl.className = 'map-category-icon';
+                        if (isSponsored) iconEl.classList.add('sponsored');
+                        iconEl.dataset.categoryId = categoryData.id;
+                        iconEl.innerHTML = `<i class="fas fa-tree"></i>`;
+                        mapGrid.appendChild(iconEl);
+                        iconCounter++;
+                    } else {
+                        mapGrid.appendChild(document.createElement('div'));
+                    }
+                }
+            }
+            
+            const progressFill = document.getElementById('progress-fill');
+            const progressText = document.getElementById('progress-text');
+            setTimeout(() => {
+                 progressFill.style.width = `${(totalSponsored / totalTrees) * 100}%`;
+                 progressText.textContent = `${totalSponsored} / ${totalTrees}`;
+            }, 100);
+        }
+        // --- END OF CHANGE ---
+
+        class AdminNotifications {
+            constructor() {
+                this.container = document.createElement('div');
+                this.container.className = 'admin-notifications';
+                document.body.appendChild(this.container);
+            }
+            show(message, type = 'success', duration = 4000) {
+                const icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
+                const notification = document.createElement('div');
+                notification.className = `notification notification-${type}`;
+                notification.innerHTML = `
+                    <div class="notification-icon"><i class="fas ${icon}"></i></div>
+                    <div class="notification-content">${message}</div>
+                    <button class="notification-close" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
+                `;
+                this.container.appendChild(notification);
+                if (duration > 0) {
+                    setTimeout(() => notification.remove(), duration);
+                }
+            }
+        }
+        
+        function openAdminPanel() {
+            document.getElementById('admin-panel').classList.add('visible');
+            document.body.style.overflow = 'hidden';
+            renderAdminPanel();
+        }
+        
+        function closeAdminPanel() {
+            if (isDirty && !confirm('У вас есть несохраненные изменения. Вы уверены, что хотите выйти?')) {
+                return;
+            }
+            document.getElementById('admin-panel').classList.remove('visible');
+            document.body.style.overflow = '';
+            isDirty = false;
+        }
+        
+        const adminSections = {
+            hero: 'Главный экран', nav: 'Навигация', about: 'О проекте', slider: 'Слайдер Деревья',
+            events: 'События', help: 'Как помочь', map: 'Тексты карты', 
+            trees: 'Управление деревьями', // Modified section
+            materials: 'Материалы', team: 'Команда', contacts: 'Контакты', footer: 'Футер', global: 'Глобальные настройки'
+        };
+
+        function renderAdminPanel() {
+            const navMenu = document.getElementById('admin-nav-menu');
+            const contentWrapper = document.getElementById('admin-content-wrapper');
+            
+            navMenu.innerHTML = Object.entries(adminSections).map(([key, title]) =>
+                `<button data-section="${key}" class="${currentAdminSection === key ? 'active' : ''}"><i class="fas fa-chevron-right fa-xs" style="margin-right: 10px;"></i>${title}</button>`
+            ).join('');
+            
+            contentWrapper.innerHTML = `<div class="admin-section active" id="admin-section-${currentAdminSection}">${getAdminSectionHTML(currentAdminSection)}</div>`;
+            
+            addAdminEventListeners();
+        }
+        
+        function createBreadcrumbs(sectionKey) {
+            return `
+                <div class="admin-section-header">
+                    <h3>${adminSections[sectionKey]}</h3>
+                    <div class="admin-breadcrumbs">
+                        <a href="#" data-section="hero">Админ-панель</a>
+                        <span class="breadcrumb-separator">/</span>
+                        <span>${adminSections[sectionKey]}</span>
+                    </div>
+                </div>`;
+        }
+
+        function getAdminSectionHTML(sectionKey) {
+            let html = createBreadcrumbs(sectionKey);
+            const data = siteData[currentAdminLang];
+            const globalData = siteData.global;
+            
+            const renderLangTabs = () => `
+                <div class="admin-lang-tabs">
+                    <button data-lang="ru" class="${currentAdminLang === 'ru' ? 'active' : ''}">RU</button>
+                    <button data-lang="en" class="${currentAdminLang === 'en' ? 'active' : ''}">EN</button>
+                    <button data-lang="ge" class="${currentAdminLang === 'ge' ? 'active' : ''}">GE</button>
+                </div>
+            `;
+            const createInput = (label, id, value, type = 'text') => `<div class="admin-form-group"><label for="${id}">${label}</label><input type="${type}" id="${id}" value="${String(value || '').replace(/"/g, '&quot;')}"></div>`;
+            const createTextarea = (label, id, value) => `<div class="admin-form-group"><label for="${id}">${label}</label><textarea id="${id}">${value || ''}</textarea></div>`;
+            const createImageInput = (label, id, value) => `
+                <div class="admin-form-group">
+                    <label for="${id}">${label}</label>
+                    <input type="text" id="${id}" value="${value.replace(/"/g, '&quot;')}" oninput="this.nextElementSibling.querySelector('img').src = this.value">
+                    <div class="image-preview-wrapper">
+                        ${value ? `<img src="${value}" alt="Preview" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">` : `<img src="" alt="Preview" style="display:none;">`}
+                        <div class="image-preview-placeholder" style="${value ? 'display:none;' : 'display:flex;'}"><i class="far fa-image"></i></div>
+                        <span>Предпросмотр</span>
+                    </div>
+                </div>`;
+
+            switch(sectionKey) {
+                case 'hero':
+                    html += `<div class="admin-card"><div class="admin-card-body">${renderLangTabs()}`;
+                    html += createInput('Заголовок', 'hero.title', data.hero.title);
+                    html += createInput('Подзаголовок', 'hero.subtitle', data.hero.subtitle);
+                    html += createInput('Дата (текстовое описание)', 'hero.date', data.hero.date);
+                    html += createInput('Подписи к таймеру (Дней)', 'countdownLabels.days', data.countdownLabels.days);
+                    html += createInput('Подписи к таймеру (Часов)', 'countdownLabels.hours', data.countdownLabels.hours);
+                    html += createInput('Подписи к тайmerу (Минут)', 'countdownLabels.minutes', data.countdownLabels.minutes);
+                    html += createInput('Подписи к таймеру (Секунд)', 'countdownLabels.seconds', data.countdownLabels.seconds);
+                    html += `</div></div>`;
+                    break;
+                case 'nav':
+                    html += `<div class="admin-card"><div class="admin-card-body">${renderLangTabs()}`;
+                    Object.entries(data.nav).forEach(([key, value]) => {
+                       html += createInput(`Пункт "${key}"`, `nav.${key}`, value);
+                    });
+                    html += `</div></div>`;
+                    break;
+                case 'about':
+                     html += renderLangTabs();
+                     html += `<div class="admin-card"><div class="admin-card-body">${createInput('Заголовок секции', 'about.title', data.about.title)}</div></div>`;
+                     html += data.about.items.map((item, index) => `
+                        <div class="admin-card" data-index="${index}">
+                            <div class="admin-card-header">
+                                <h4>Блок ${index + 1}: ${item.title}</h4>
+                                <button class="admin-btn btn-delete" data-action="delete" data-path="about.items" data-index="${index}">Удалить</button>
+                            </div>
+                            <div class="admin-card-body">
+                                ${createInput(`Заголовок блока`, `about.items.${index}.title`, item.title)}
+                                ${createTextarea(`Текст блока`, `about.items.${index}.text`, item.text)}
+                            </div>
+                        </div>`).join('');
+                     html += `<button class="admin-btn btn-add" data-action="add" data-path="about.items">Добавить блок "О проекте"</button>`;
+                    break;
+                case 'slider':
+                    html += renderLangTabs();
+                    html += data.slider.map((slide, index) => `
+                        <div class="admin-card" data-index="${index}">
+                            <div class="admin-card-header">
+                                <h4>Слайд ${index + 1}: ${slide.title}</h4>
+                                <button class="admin-btn btn-delete" data-action="delete" data-path="slider" data-index="${index}">Удалить</button>
+                            </div>
+                            <div class="admin-card-body">
+                             ${createImageInput('URL Картинки', `slider.${index}.img`, slide.img)}
+                             ${createInput('Заголовок', `slider.${index}.title`, slide.title)}
+                             ${createTextarea('Описание', `slider.${index}.desc`, slide.desc)}
+                            </div>
+                        </div>`).join('');
+                    html += `<button class="admin-btn btn-add" data-action="add" data-path="slider">Добавить слайд</button>`;
+                    break;
+                case 'events':
+                    html += renderLangTabs();
+                    html += `<div class="admin-card"><div class="admin-card-body">${createInput('Заголовок секции', 'events.title', data.events.title)}</div></div>`;
+                    html += data.events.items.map((event, index) => `
+                        <div class="admin-card" data-index="${index}">
+                            <div class="admin-card-header">
+                                <h4>Событие ${index + 1}: ${event.title}</h4>
+                                <button class="admin-btn btn-delete" data-action="delete" data-path="events.items" data-index="${index}">Удалить</button>
+                            </div>
+                            <div class="admin-card-body">
+                                ${createInput('Заголовок события', `events.items.${index}.title`, event.title)}
+                                ${createTextarea('Описание события', `events.items.${index}.desc`, event.desc)}
+                            </div>
+                        </div>`).join('');
+                    html += `<button class="admin-btn btn-add" data-action="add" data-path="events.items">Добавить событие</button>`;
+                    break;
+                case 'help':
+                    html += renderLangTabs();
+                    html += `<div class="admin-card"><div class="admin-card-body">
+                                ${createInput('Заголовок секции', 'help.title', data.help.title)}
+                                ${createTextarea('Вступительный текст', 'help.intro', data.help.intro)}
+                            </div></div>`;
+                    
+                    ['card1', 'card2', 'card3'].forEach(card => {
+                        html += `
+                        <div class="admin-card">
+                            <div class="admin-card-header">
+                                <h4>Карточка: ${data.help[card].title}</h4>
+                            </div>
+                            <div class="admin-card-body">
+                                ${createInput('Заголовок карточки', `help.${card}.title`, data.help[card].title)}
+                                ${createTextarea('Описание карточки', `help.${card}.desc`, data.help[card].desc)}
+                                ${card === 'card1' ? createTextarea('Детали (с переносами строк)', `help.${card}.details`, data.help[card].details) : ''}
+                                ${card !== 'card1' ? createInput('Текст кнопки', `help.${card}.button`, data.help[card].button) : ''}
+                            </div>
+                        </div>`;
+                    });
+                    break;
+                 case 'map':
+                    html += renderLangTabs();
+                    html += `
+                    <div class="admin-card">
+                        <div class="admin-card-header"><h4>Тексты для карты</h4></div>
+                        <div class="admin-card-body">
+                            <p class="admin-text-muted">Для управления категориями деревьев (количество, средства, названия), перейдите в раздел "Управление деревьями".</p>
+                            ${createInput('Заголовок карты', 'map.title', data.map.title)}
+                            ${createTextarea('Описание карты', 'map.desc', data.map.desc)}
+                            ${createTextarea('Текст о прозрачности', 'map.transparency', data.map.transparency)}
+                        </div>
+                    </div>`;
+                    break;
+                // --- START OF CHANGE: New Admin Section for Tree Categories ---
+                case 'trees':
+                    html += `<p class="admin-text-muted">Здесь вы управляете категориями деревьев для интерактивной карты.</p>`;
+                    globalData.treeCategories.forEach((category, index) => {
+                        html += `
+                        <div class="admin-card" data-index="${index}">
+                            <div class="admin-card-header">
+                                <h4>Категория: ${siteData.ru.treeCategories[category.id]?.name || category.id}</h4>
+                                <button class="admin-btn btn-delete" data-action="delete" data-path="treeCategories" data-index="${index}">Удалить категорию</button>
+                            </div>
+                            <div class="admin-card-body">
+                                <h5 style="color: var(--admin-text-muted);">Глобальные настройки</h5>
+                                ${createInput('ID (уникальный, на английском, без пробелов)', `global.treeCategories.${index}.id`, category.id)}
+                                ${createInput('Планируемое кол-во', `global.treeCategories.${index}.quantity`, category.quantity, 'number')}
+                                ${createInput('Стоимость 1 дерева (GEL)', `global.treeCategories.${index}.costPerTree`, category.costPerTree, 'number')}
+                                ${createInput('Уже оплачено деревьев', `global.treeCategories.${index}.sponsoredCount`, category.sponsoredCount, 'number')}
+                                ${createImageInput('URL Картинки', `global.treeCategories.${index}.img`, category.img)}
+                                <hr style="border-color: var(--admin-border); margin: 2rem 0;">
+                                <h5 style="color: var(--admin-text-muted);">Тексты для языков</h5>
+                                ${createInput('Название (RU)', `ru.treeCategories.${category.id}.name`, siteData.ru.treeCategories[category.id]?.name)}
+                                ${createTextarea('Описание (RU)', `ru.treeCategories.${category.id}.desc`, siteData.ru.treeCategories[category.id]?.desc)}
+                                
+                                ${createInput('Название (EN)', `en.treeCategories.${category.id}.name`, siteData.en.treeCategories[category.id]?.name)}
+                                ${createTextarea('Описание (EN)', `en.treeCategories.${category.id}.desc`, siteData.en.treeCategories[category.id]?.desc)}
+
+                                ${createInput('Название (GE)', `ge.treeCategories.${category.id}.name`, siteData.ge.treeCategories[category.id]?.name)}
+                                ${createTextarea('Описание (GE)', `ge.treeCategories.${category.id}.desc`, siteData.ge.treeCategories[category.id]?.desc)}
+                            </div>
+                        </div>`;
+                    });
+                    html += `<button class="admin-btn btn-add" data-action="add" data-path="treeCategories">Добавить категорию деревьев</button>`;
+                    break;
+                // --- END OF CHANGE ---
+                case 'materials':
+                    html += renderLangTabs();
+                    html += `<div class="admin-card"><div class="admin-card-body">${createInput('Заголовок секции', 'materials.title', data.materials.title)}</div></div>`;
+                    html += `<div class="admin-card"><div class="admin-card-body">${createTextarea('Вступительный текст', 'materials.intro', data.materials.intro)}</div></div>`;
+                    
+                    html += data.materials.items.map((material, index) => `
+                        <div class="admin-card" data-index="${index}">
+                            <div class="admin-card-header">
+                                <h4>Материал ${index + 1}: ${material.title}</h4>
+                                <button class="admin-btn btn-delete" data-action="delete" data-path="materials.items" data-index="${index}">Удалить</button>
+                            </div>
+                            <div class="admin-card-body">
+                                ${createInput('Заголовок материала', `materials.items.${index}.title`, material.title)}
+                                ${createTextarea('Пункты (каждый с новой строки)', `materials.items.${index}.points`, material.points.join('\n'))}
+                            </div>
+                        </div>`).join('');
+                    html += `<button class="admin-btn btn-add" data-action="add" data-path="materials.items">Добавить материал</button>`;
+                    break;
+                case 'team':
+                    html += renderLangTabs();
+                    html += `<div class="admin-card"><div class="admin-card-body">${createInput('Заголовок секции', `team.title`, data.team.title)}</div></div>`;
+                    html += data.team.members.map((member, index) => `
+                        <div class="admin-card" data-index="${index}">
+                            <div class="admin-card-header">
+                                <h4>Сотрудник: ${member.name}</h4>
+                                <button class="admin-btn btn-delete" data-action="delete" data-path="team.members" data-index="${index}">Удалить</button>
+                            </div>
+                            <div class="admin-card-body">
+                                ${createImageInput('URL Фото', `team.members.${index}.img`, member.img)}
+                                ${createInput('Имя', `team.members.${index}.name`, member.name)}
+                                ${createInput('Роль', `team.members.${index}.role`, member.role)}
+                            </div>
+                        </div>`).join('');
+                    html += `<button class="admin-btn btn-add" data-action="add" data-path="team.members">Добавить сотрудника</button>`;
+                    break;
+                case 'contacts':
+                    html += renderLangTabs();
+                    html += `<div class="admin-card"><div class="admin-card-body">${createInput('Заголовок секции', 'contacts.title', data.contacts.title)}</div></div>`;
+                    html += `
+                    <div class="admin-card">
+                        <div class="admin-card-header"><h4>Контактная информация</h4></div>
+                        <div class="admin-card-body">
+                            ${createInput('Заголовок', 'contacts.heading', data.contacts.heading)}
+                            ${createTextarea('Описание', 'contacts.desc', data.contacts.desc)}
+                            ${createInput('Название локации', 'contacts.locationName', data.contacts.locationName)}
+                            ${createInput('Адрес локации', 'contacts.locationAddress', data.contacts.locationAddress)}
+                            ${createInput('Заголовок карты', 'contacts.mapLocation', data.contacts.mapLocation)}
+                        </div>
+                    </div>`;
+                    html += `
+                    <div class="admin-card">
+                        <div class="admin-card-header"><h4>Форма обратной связи</h4></div>
+                        <div class="admin-card-body">
+                            ${createInput('Заголовок формы', 'contacts.form.title', data.contacts.form.title)}
+                            ${createInput('Лейбл для имени', 'contacts.form.name', data.contacts.form.name)}
+                            ${createInput('Лейбл для email', 'contacts.form.email', data.contacts.form.email)}
+                            ${createInput('Лейбл для сообщения', 'contacts.form.message', data.contacts.form.message)}
+                            ${createInput('Текст кнопки', 'contacts.form.button', data.contacts.form.button)}
+                        </div>
+                    </div>`;
+                    break;
+                case 'footer':
+                    html += `<div class="admin-card"><div class="admin-card-body">${renderLangTabs()}`;
+                    html += createTextarea('Девиз в футере', 'footer.motto', data.footer.motto);
+                    html += `</div></div>`;
+                    break;
+                case 'global':
+                    html += `<div class="admin-card"><div class="admin-card-header"><h4>Дата события (для таймера)</h4></div><div class="admin-card-body">`;
+                    html += createInput('Дата события (формат YYYY-MM-DD)', `global.eventDate`, globalData.eventDate, 'date');
+                    html += `</div></div>`;
+                    html += `<div class="admin-card"><div class="admin-card-header"><h4>Социальные сети</h4></div><div class="admin-card-body">`;
+                    html += createInput('Instagram URL', `global.socials.instagram`, globalData.socials.instagram);
+                    html += createInput('Telegram URL', `global.socials.telegram`, globalData.socials.telegram);
+                    html += createInput('Email (mailto:)', `global.socials.email`, globalData.socials.email);
+                    html += `</div></div>`;
+                    html += `<div class="admin-card"><div class="admin-card-header"><h4>Карта</h4></div><div class="admin-card-body">`;
+                    html += createInput('Google Maps Iframe SRC', `global.mapIframeSrc`, globalData.mapIframeSrc);
+                    html += `</div></div>`;
+                    break;
+                default:
+                    html += `<div class="admin-card"><div class="admin-card-body">Редактирование для этой секции находится в разработке.</div></div>`;
+            }
+            return html;
+        }
+
+        function saveAdminChanges() {
+            const saveBtn = document.getElementById('admin-save-btn');
+            saveBtn.disabled = true;
+            saveBtn.textContent = 'Сохранение...';
+
+            setTimeout(() => {
+                try {
+                    const tempSiteData = deepCopy(siteData);
+                    const oldCategoryIds = tempSiteData.global.treeCategories.map(c => c.id);
+                    let newCategoryIds = [];
+
+                    document.querySelectorAll('#admin-content-wrapper input, #admin-content-wrapper textarea').forEach(input => {
+                        if (!input.id) return;
+                        const keys = input.id.split('.');
+                        
+                        // Handle potential ID change for tree categories
+                        if (keys.includes('treeCategories') && keys[keys.length -1] === 'id') {
+                             newCategoryIds[keys[2]] = input.value; // keys[2] is the index
+                        }
+
+                        let current = tempSiteData;
+                        for (let i = 0; i < keys.length - 1; i++) {
+                            if (!current[keys[i]]) current[keys[i]] = {};
+                            current = current[keys[i]];
+                        }
+                        
+                        if(keys.includes('points')) {
+                            current[keys[keys.length - 1]] = input.value.split('\n').filter(p => p.trim() !== '');
+                        } else {
+                           const originalValuePath = input.id.replace(/^(ru|en|ge)\.treeCategories\..*\.(name|desc)$/, `ru.treeCategories.${oldCategoryIds[keys[2]]}.$2`);
+                           const originalValue = originalValuePath.split('.').reduce((obj, k) => obj && obj[k], siteData);
+                           
+                           if (typeof originalValue === 'number' || input.type === 'number') {
+                                current[keys[keys.length - 1]] = parseFloat(input.value) || 0;
+                            } else {
+                                current[keys[keys.length - 1]] = input.value;
+                            }
+                        }
+                    });
+
+                    // --- START OF ADDITION: Handle Tree Category ID changes ---
+                    newCategoryIds.forEach((newId, index) => {
+                        const oldId = oldCategoryIds[index];
+                        if (newId && oldId && newId !== oldId) {
+                            ['ru', 'en', 'ge'].forEach(lang => {
+                                if (tempSiteData[lang].treeCategories[oldId]) {
+                                    tempSiteData[lang].treeCategories[newId] = tempSiteData[lang].treeCategories[oldId];
+                                    delete tempSiteData[lang].treeCategories[oldId];
+                                }
+                            });
+                        }
+                    });
+                    // --- END OF ADDITION ---
+                    
+                    siteData = tempSiteData;
+                    localStorage.setItem('savedSiteData', JSON.stringify(siteData));
+                    isDirty = false;
+                    adminNotifications.show('Изменения успешно сохранены!', 'success');
+                    renderPage();
+                } catch (error) {
+                    console.error("Save error:", error);
+                    adminNotifications.show('Ошибка при сохранении. См. консоль.', 'error');
+                } finally {
+                    saveBtn.disabled = false;
+                    saveBtn.textContent = 'Сохранить';
+                }
+            }, 500);
+        }
+        
+        function addAdminEventListeners() {
+            const adminNav = document.getElementById('admin-nav-menu');
+            
+            adminNav.querySelectorAll('button').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    currentAdminSection = btn.dataset.section;
+                    renderAdminPanel();
+                    if (window.innerWidth <= 992) {
+                        document.getElementById('admin-nav-menu').classList.remove('open');
+                        document.getElementById('admin-overlay').classList.remove('active');
+                    }
+                });
+            });
+
+            document.querySelectorAll('.admin-breadcrumbs a').forEach(btn => {
+                 btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    currentAdminSection = btn.dataset.section;
+                    renderAdminPanel();
+                });
+            });
+            document.querySelectorAll('.admin-lang-tabs button').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    currentAdminLang = btn.dataset.lang;
+                    renderAdminPanel();
+                });
+            });
+            document.querySelectorAll('.admin-btn[data-action]').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const action = e.target.closest('[data-action]').dataset.action;
+                    const path = e.target.closest('[data-action]').dataset.path;
+                    
+                    if (path === 'treeCategories') {
+                        if (action === 'add') {
+                            const newId = `new_category_${Date.now()}`;
+                            siteData.global.treeCategories.push({ id: newId, quantity: 10, costPerTree: 50, sponsoredCount: 0, img: 'https://source.unsplash.com/400x300/?tree' });
+                            ['ru', 'en', 'ge'].forEach(lang => {
+                                siteData[lang].treeCategories[newId] = { name: 'Новая Категория', desc: 'Описание для новой категории.' };
+                            });
+                        } else if (action === 'delete') {
+                            const index = parseInt(e.target.closest('[data-index]').dataset.index, 10);
+                            const categoryId = siteData.global.treeCategories[index].id;
+                            if(confirm(`Вы уверены, что хотите удалить категорию "${categoryId}"?`)) {
+                               siteData.global.treeCategories.splice(index, 1);
+                               ['ru', 'en', 'ge'].forEach(lang => delete siteData[lang].treeCategories[categoryId]);
+                            }
+                        }
+                    } else {
+                         let targetArray = siteData[currentAdminLang];
+                         path.split('.').forEach(key => targetArray = targetArray[key]);
+
+                        if (action === 'add') {
+                            let newItem = {};
+                            if(path === 'about.items') newItem = { title: "Новый заголовок", text: "Новый текст." };
+                            if(path === 'slider') newItem = { img: "https://source.unsplash.com/1200x800/?nature", title: "Новый слайд", desc: "Новое описание." };
+                            if(path === 'team.members') newItem = { img: "https://source.unsplash.com/300x300/?portrait", name: "Новый сотрудник", role: "Должность" };
+                            if(path === 'events.items') newItem = { title: "Новое событие", desc: "Новое описание." };
+                            if(path === 'materials.items') newItem = { title: "Новый материал", points: ["Пункт 1", "Пункт 2"] };
+                            targetArray.push(newItem);
+                        } else if (action === 'delete') {
+                            const index = parseInt(e.target.closest('[data-index]').dataset.index, 10);
+                            if(confirm(`Вы уверены, что хотите удалить этот элемент?`)) {
+                               targetArray.splice(index, 1);
+                            }
+                        }
+                    }
+
+                    isDirty = true;
+                    renderAdminPanel();
+                });
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedData = localStorage.getItem('savedSiteData');
+            siteData = savedData ? JSON.parse(savedData) : deepCopy(defaultSiteData);
+            adminNotifications = new AdminNotifications();
+            
+            renderPage();
+
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const navMenu = document.getElementById('nav-menu');
+            const navOverlay = document.getElementById('nav-overlay');
+
+            const toggleNav = () => {
+                hamburgerBtn.classList.toggle('active');
+                navMenu.classList.toggle('active');
+                navOverlay.classList.toggle('active');
+            };
+
+            hamburgerBtn.addEventListener('click', toggleNav);
+            const closeNav = () => {
+                if (navMenu.classList.contains('active')) {
+                    hamburgerBtn.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    navOverlay.classList.remove('active');
+                }
+            };
+            navMenu.addEventListener('click', (e) => { if (e.target.tagName === 'A') closeNav(); });
+            navOverlay.addEventListener('click', closeNav);
+
+            document.getElementById('feedback-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Спасибо за ваше сообщение! / Thank you for your message! / გმადლობთ შეტყობინებისთვის!');
+                e.target.reset();
+            });
+
+            const initNavObserver = () => {
+                const sections = document.querySelectorAll('section[id]');
+                const navLinks = document.querySelectorAll('#nav-menu a');
+                if(navLinks.length === 0) return;
+                const observerOptions = { rootMargin: '-50% 0px -50% 0px' };
+                const sectionObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const id = entry.target.getAttribute('id');
+                            navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${id}`));
+                        }
+                    });
+                }, observerOptions);
+                sections.forEach(section => sectionObserver.observe(section));
+            };
+            initNavObserver();
+
+            const langButtons = document.querySelectorAll('.language-switcher button');
+            const setLanguage = (lang) => {
+                currentLang = lang;
+                renderPage();
+                langButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.lang === lang));
+                document.documentElement.lang = lang;
+                initNavObserver();
+                initFadeInObserver();
+            };
+            langButtons.forEach(button => button.addEventListener('click', () => setLanguage(button.dataset.lang)));
+
+            const initFadeInObserver = () => {
+                const fadeElements = document.querySelectorAll('.fade-in');
+                const fadeObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            fadeObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                fadeElements.forEach(el => {
+                    el.classList.remove('visible'); // Ensure it's hidden initially
+                    fadeObserver.observe(el);
+                });
+            };
+            initFadeInObserver();
+            
+            // --- START OF CHANGE: Modified Modal Opening Logic ---
+            const treeModal = document.getElementById('tree-modal');
+            document.getElementById('map-grid').addEventListener('click', (e) => {
+                const treeEl = e.target.closest('.map-category-icon');
+                if (!treeEl) return;
+                const categoryId = treeEl.dataset.categoryId;
+                const globalCategoryData = siteData.global.treeCategories.find(c => c.id === categoryId);
+                const langCategoryData = siteData[currentLang].treeCategories[categoryId];
+                
+                if (globalCategoryData && langCategoryData) {
+                    document.getElementById('modal-tree-img').src = globalCategoryData.img;
+                    document.getElementById('modal-tree-name').textContent = langCategoryData.name;
+                    document.getElementById('modal-tree-desc').textContent = langCategoryData.desc;
+                    
+                    const totalFunds = globalCategoryData.sponsoredCount * globalCategoryData.costPerTree;
+                    const totalGoal = globalCategoryData.quantity * globalCategoryData.costPerTree;
+                    document.getElementById('modal-tree-funds').textContent = `Собрано на ${globalCategoryData.sponsoredCount} из ${globalCategoryData.quantity} деревьев (${totalFunds} / ${totalGoal} GEL)`;
+                    
+                    const progress = Math.min((globalCategoryData.sponsoredCount / globalCategoryData.quantity) * 100, 100);
+                    document.getElementById('modal-tree-progress').style.width = `${progress}%`;
+                    
+                    treeModal.classList.add('visible');
+                }
+            });
+            // --- END OF CHANGE ---
+
+            const closeModal = () => treeModal.classList.remove('visible');
+            document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+            treeModal.addEventListener('click', (e) => { if (e.target === treeModal) closeModal(); });
+
+            document.getElementById('footer-copyright').addEventListener('click', () => {
+                const password = prompt('Введите пароль для входа в админ-панель:');
+                if (password === 'admin') openAdminPanel();
+                else if(password !== null) alert('Неверный пароль.');
+            });
+            document.getElementById('admin-close-btn').addEventListener('click', closeAdminPanel);
+            document.getElementById('admin-save-btn').addEventListener('click', saveAdminChanges);
+            
+            const adminMenuToggle = document.getElementById('admin-menu-toggle');
+            const adminNavMenu = document.getElementById('admin-nav-menu');
+            const adminOverlay = document.getElementById('admin-overlay');
+
+            const toggleAdminNav = () => {
+                adminNavMenu.classList.toggle('open');
+                adminOverlay.classList.toggle('active');
+            };
+
+            adminMenuToggle.addEventListener('click', toggleAdminNav);
+            adminOverlay.addEventListener('click', toggleAdminNav);
+            
+            document.getElementById('admin-panel').addEventListener('input', () => { isDirty = true; });
+            
+            document.addEventListener('keydown', (e) => {
+                if (document.getElementById('admin-panel').classList.contains('visible') && e.ctrlKey && e.key === 's') {
+                    e.preventDefault();
+                    saveAdminChanges();
+                }
+            });
+            
+            window.addEventListener('beforeunload', (e) => {
+                if (isDirty) {
+                    e.preventDefault();
+                    e.returnValue = '';
+                }
+            });
+        });
+
+        let sliderInterval;
+        function initTreeSlider() {
+            if (sliderInterval) clearInterval(sliderInterval);
+            const slides = document.querySelectorAll('.trees-slider .slide');
+            if (slides.length === 0) return;
+            let currentSlide = 0;
+            function showSlide(index) {
+                slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+            }
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }
+            showSlide(0);
+            sliderInterval = setInterval(nextSlide, 5000);
+        }
+    </script>
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-analytics.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyBVtMjImUQ7KxdRITAoloTdUFhH2txovYQ",
+        authDomain: "arsenal-garden.firebaseapp.com",
+        projectId: "arsenal-garden",
+        storageBucket: "arsenal-garden.firebasestorage.app",
+        messagingSenderId: "617649648525",
+        appId: "1:617649648525:web:978b3ce09d0d87e83643c4",
+        measurementId: "G-CTVW6WRLM1"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+    </script>
+</body>
+</html>
