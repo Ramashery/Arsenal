@@ -1,0 +1,741 @@
+/* Base Styles & Resets (No changes here) */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* --- START OF IMPROVEMENT: New Color Palette --- */
+:root {
+    --primary-green: #5b8c7d;      /* Спокойный зелёный */
+    --secondary-teal: #3a9188;     /* Насыщенный бирюзовый */
+    --accent-gold: #d4a96a;        /* Тёплый золотистый акцент */
+    --light-cream: #f8f4e9;        /* Кремовый фон */
+    --dark-blue: #2b3d4d;          /* Тёмно-синий вместо чёрного */
+    --text-dark: #2b3d4d;          /* Тёмный текст */
+    --text-light: #f8f4e9;         /* Светлый текст */
+    --overlay-dark: rgba(43, 61, 77, 0.85); /* Тёмный оверлей */
+
+    /* --- START OF CHANGE: Neomorphism Shadow Colors --- */
+    --shadow-dark-outer: rgba(0, 0, 0, 0.25);
+    --shadow-light-outer: rgba(255, 255, 255, 0.08);
+    /* --- END OF CHANGE --- */
+
+    /* Mapped to old variable names for compatibility */
+    --primary-color: var(--primary-green);
+    --secondary-color: var(--secondary-teal);
+    --accent-color: var(--accent-gold);
+    --light-color: var(--light-cream);
+    --dark-color: var(--dark-blue);
+    --text-color: var(--text-dark);
+    --text-color-light: var(--text-light);
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+/* --- END OF IMPROVEMENT --- */
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    line-height: 1.7;
+    color: var(--text-color);
+    background-color: var(--light-color);
+    overflow-x: hidden;
+}
+
+/* Typography */
+h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: var(--dark-color);
+}
+
+h1 {
+    font-size: 3.5rem;
+    color: white;
+    font-weight: 400;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+h2 {
+    font-size: 2.8rem;
+    position: relative;
+    padding-bottom: 0.75rem;
+}
+
+/* --- START OF IMPROVEMENT: Consistent Left Alignment for Titles --- */
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0; /* Always align line to the left */
+    width: 70px;
+    height: 3px;
+    background-color: var(--accent-color);
+}
+
+/* --- START OF CHANGE: Harmonious Section Title Spacing --- */
+.section-title {
+    text-align: left;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+}
+/* --- END OF CHANGE --- */
+
+h3 {
+    font-size: 1.8rem;
+}
+
+/* --- START OF IMPROVEMENT: Global Left Alignment for Paragraphs --- */
+p {
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    max-width: 800px;
+    text-align: left; /* Set left alignment as default for all paragraphs */
+}
+/* Exceptions for elements that should remain centered */
+footer, footer p, .team-member p {
+     text-align: center;
+}
+/* --- END OF IMPROVEMENT --- */
+
+/* Containers & Sections */
+/* --- START OF IMPROVEMENT: Better Container Padding --- */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem; /* Increased default padding for better spacing */
+}
+/* --- END OF IMPROVEMENT --- */
+
+section {
+    padding: 6rem 0;
+    overflow: hidden;
+}
+
+.section-dark {
+    background-color: var(--dark-color);
+    color: var(--text-color-light);
+}
+
+.section-dark h2, .section-dark h3, .section-dark p, .section-dark h4 {
+    color: var(--text-color-light);
+}
+
+/* --- START OF CHANGE: Header Styling --- */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: var(--light-cream); /* Permanent solid background */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: 1.5rem 0; /* Increased height, making it constant */
+    box-shadow: 0 4px 20px rgba(43, 61, 77, 0.1); /* Permanent shadow */
+    border-bottom: 1px solid rgba(43, 61, 77, 0.1);
+}
+
+/* Removed the header.scrolled class as it's no longer needed */
+
+.nav-container { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 0; /* Padding is now on the header itself */
+}
+/* --- END OF CHANGE --- */
+
+.logo {
+    position: relative;
+    overflow: hidden;
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--primary-green);
+    text-decoration: none;
+}
+
+.logo::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent-gold);
+    transition: width 0.3s ease;
+}
+
+.logo:hover::after {
+    width: 100%;
+}
+
+/* --- START OF IMPROVEMENT: New Unified Navigation Panel --- */
+.nav-menu {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    position: fixed;
+    top: 0;
+    right: 0; /* Always position to the right */
+    width: 90%; /* Responsive width for mobile */
+    max-width: 400px; /* Max width for desktop */
+    height: 100vh;
+    background: rgba(248, 244, 233, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 6rem 3rem; /* Generous padding */
+    align-items: flex-start;
+    box-shadow: -5px 0 25px rgba(43, 61, 77, 0.15);
+    z-index: 1005;
+    transform: translateX(100%); /* Start off-screen */
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.nav-menu.active {
+    transform: translateX(0); /* Slide in */
+}
+
+.nav-menu li {
+    width: 100%;
+    margin-bottom: 1rem;
+    /* Animation setup */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Staggered animation for menu items */
+.nav-menu.active li:nth-child(1) { transition-delay: 0.20s; }
+.nav-menu.active li:nth-child(2) { transition-delay: 0.25s; }
+.nav-menu.active li:nth-child(3) { transition-delay: 0.30s; }
+.nav-menu.active li:nth-child(4) { transition-delay: 0.35s; }
+.nav-menu.active li:nth-child(5) { transition-delay: 0.40s; }
+.nav-menu.active li:nth-child(6) { transition-delay: 0.45s; }
+.nav-menu.active li:nth-child(7) { transition-delay: 0.50s; }
+
+.nav-menu.active li {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: var(--dark-color);
+    font-size: 1.8rem; /* Larger, more elegant font size */
+    font-family: var(--font-heading);
+    font-weight: 400;
+    transition: var(--transition);
+    position: relative;
+    padding-bottom: 8px;
+    display: inline-block;
+}
+.nav-menu a::after {
+    content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px;
+    background: var(--primary-color);
+    transition: var(--transition);
+}
+.nav-menu a:hover, .nav-menu a.active { color: var(--primary-color); }
+.nav-menu a:hover::after, .nav-menu a.active::after { width: 50%; }
+
+/* Overlay for when menu is open */
+.nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1004;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+.nav-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Hamburger is now always visible */
+.hamburger {
+    display: flex; /* Always visible */
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1010; /* Make sure it's on top of everything */
+    margin-left: 1rem;
+}
+/* --- END OF IMPROVEMENT --- */
+
+.language-switcher button { background: none; border: none; cursor: pointer; margin-left: 0.5rem; opacity: 0.6; transition: var(--transition); font-family: var(--font-body); }
+.language-switcher button.active { opacity: 1; font-weight: 600; color: var(--primary-color); }
+
+.hamburger span {
+    width: 100%;
+    height: 3px;
+    background-color: var(--dark-color);
+    border-radius: 2px;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.hamburger.active span { background-color: var(--dark-color); } /* Ensure color consistency when open */
+.hamburger.active span:nth-child(1) { transform: translateY(11px) rotate(45deg); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: translateY(-11px) rotate(-45deg); }
+
+/* --- START OF CHANGE: Hero Section Styling --- */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Align content to the center */
+    text-align: center; /* Align text to the center */
+    background: linear-gradient(var(--overlay-dark), var(--overlay-dark)), url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+    background-attachment: fixed;
+    position: relative; /* Added for countdown positioning */
+}
+
+.hero-content {
+    text-align: center;
+    max-width: 900px; /* Increased max-width for countdown */
+    padding: 0 5%; /* Add horizontal padding for mobile */
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    color: white;
+    font-style: italic;
+    margin-bottom: 1rem;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    text-align: center; /* Explicitly set alignment */
+}
+
+.hero-date {
+    font-size: 1.2rem;
+    color: white;
+    letter-spacing: 2px;
+    margin-top: 2rem;
+    text-align: center; /* Explicitly set alignment */
+}
+/* --- END OF CHANGE --- */
+
+/* --- START OF ADDITION: Countdown Timer Styling --- */
+.countdown {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2.5rem;
+    text-align: center;
+    color: white;
+}
+.countdown-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.countdown-number {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    font-weight: 600;
+    line-height: 1;
+}
+.countdown-label {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.8;
+}
+/* --- END OF ADDITION --- */
+
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: var(--secondary-teal);
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: 500;
+    border: 2px solid var(--secondary-teal);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn:hover {
+    background-color: var(--dark-blue);
+    border-color: var(--dark-blue);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(43, 61, 77, 0.2);
+}
+
+.btn-outline { background: transparent; color: white; border-color: white; }
+.btn-outline:hover { background: white; color: var(--dark-color); }
+
+/* About Section */
+#about-content-wrapper { max-width: 800px; } /* Removed margin auto, alignment is handled by container */
+.about-item h3 { margin-top: 3rem; }
+.about-item:first-child h3 { margin-top: 0; }
+
+/* --- START OF CHANGE: Fix for crypto wallet text wrapping --- */
+#help-card-details-money { /* Unique ID for money card details */
+    white-space: pre-wrap;
+    overflow-wrap: break-word; /* Forces long strings to wrap */
+}
+/* --- END OF CHANGE --- */
+
+/* Trees Section */
+#trees { padding: 0; }
+.trees-slider {
+    position: relative;
+    width: 100%;
+    height: 80vh;
+    overflow: hidden;
+    background: var(--dark-color);
+}
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: flex-end;
+}
+.slide::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to top, var(--overlay-dark), transparent 50%);
+}
+.slide.active { opacity: 1; }
+.slide-content {
+    position: relative;
+    z-index: 2;
+    color: var(--text-color-light);
+    padding: 3rem 5%;
+    width: 100%;
+}
+.slide-content h3 { color: white; }
+.slide-content p { color: var(--text-color-light); max-width: 600px; }
+
+/* Events Section */
+.events-timeline { position: relative; max-width: 800px; margin: 0; } /* Removed margin auto */
+.events-timeline::before { content: ''; position: absolute; left: 15px; top: 0; height: 100%; width: 3px; background: var(--secondary-color); }
+.event-item { padding: 1rem 0 2rem 50px; position: relative; }
+.event-item::before { content: ''; position: absolute; left: 0; top: 1.2rem; width: 30px; height: 30px; border-radius: 50%; background-color: var(--light-color); border: 4px solid var(--accent-color); z-index: 1; }
+
+/* Help Section */
+.help-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+
+/* --- START OF CHANGE: Neomorphic Card Styling --- */
+.card {
+    background: var(--dark-blue);
+    border-radius: 20px;
+    padding: 2.5rem;
+    height: 100%;
+    box-shadow: 10px 10px 20px var(--shadow-dark-outer), 
+                -10px -10px 20px var(--shadow-light-outer);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: var(--transition);
+}
+.card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 15px 15px 30px var(--shadow-dark-outer), 
+                -15px -15px 30px var(--shadow-light-outer);
+}
+/* --- END OF CHANGE --- */
+
+/* --- START OF CHANGE: Neomorphic Map Styling --- */
+.garden-map { 
+    background: var(--dark-blue);
+    padding: 3rem; /* Increased padding */
+    border-radius: 20px; 
+    margin: 4rem 0; 
+    box-shadow: 10px 10px 20px var(--shadow-dark-outer),
+                -10px -10px 20px var(--shadow-light-outer);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+/* --- END OF CHANGE --- */
+
+.progress-container h4 { margin-bottom: 1rem; }
+.progress-bar { width: 100%; height: 30px; background-color: rgba(255,255,255,0.1); border-radius: 15px; overflow: hidden; position: relative; }
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: width 1.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.progress-fill span { color: white; font-weight: bold; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+
+/* --- START OF CHANGE: New Map Grid and Icons Styling --- */
+.map-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+    width: 100%;
+}
+.map-category-item {
+    padding: 1rem;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.map-category-item:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.07);
+}
+.map-category-name {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-light);
+}
+.map-tree-icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    max-width: 180px;
+    margin: 0 auto;
+}
+.map-tree-icon {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.2);
+    transition: color 0.3s ease;
+}
+.map-tree-icon.funded {
+    color: var(--primary-green);
+    text-shadow: 0 0 8px var(--accent-gold);
+}
+/* --- END OF CHANGE --- */
+
+
+/* Materials Section (Accordion) */
+.materials-accordion { max-width: 800px; margin: 0; } /* Removed margin auto */
+/* --- START OF CHANGE: Neomorphic Accordion Style --- */
+.material-item {
+    background: var(--dark-blue);
+    margin-bottom: 2rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 10px 10px 20px var(--shadow-dark-outer),
+                -10px -10px 20px var(--shadow-light-outer);
+    transition: var(--transition);
+}
+.material-item:hover {
+    transform: translateY(-5px);
+}
+/* --- END OF CHANGE --- */
+.material-item summary { padding: 1.5rem; cursor: pointer; font-weight: 600; font-size: 1.2rem; list-style: none; position: relative; }
+.material-item summary::-webkit-details-marker { display: none; }
+.material-item summary::after { content: '+'; position: absolute; right: 1.5rem; top: 50%; transform: translateY(-50%); font-size: 1.5rem; transition: var(--transition); }
+.material-item[open] summary::after { transform: translateY(-50%) rotate(45deg); }
+.material-content { padding: 0 1.5rem 1.5rem 1.5rem; }
+.material-content ul { padding-left: 1.5rem; }
+
+/* Team Section */
+.team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 2rem; }
+.team-member { text-align: center; }
+.team-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 1rem;
+    border: 5px solid var(--secondary-color);
+    transition: var(--transition);
+}
+.team-member:hover .team-img {
+    transform: scale(1.05);
+    border-color: var(--accent-color);
+    box-shadow: 0 5px 15px rgba(43, 61, 77, 0.2);
+}
+
+/* Contacts Section */
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+.form-group { margin-bottom: 1.5rem; }
+.form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; }
+.form-control { width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem; transition: var(--transition); background-color: #fdfdfd; }
+.form-control:focus { border-color: var(--primary-color); outline: none; box-shadow: 0 0 0 3px rgba(91, 140, 125, 0.2); }
+.social-links { display: flex; gap: 1rem; margin-top: 1.5rem; }
+.social-links a { display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background-color: var(--primary-color); color: white; border-radius: 50%; text-decoration: none; transition: var(--transition); font-size: 1.2rem; }
+.social-links a:hover { background-color: var(--accent-color); transform: translateY(-3px); }
+
+.map-container { margin-top: 4rem; text-align: left; } /* Align map title to the left */
+.map-container h3 { margin-bottom: 1.5rem; }
+
+/* Footer */
+footer { background-color: var(--dark-color); color: var(--text-color-light); padding: 3rem 0; text-align: center; }
+footer p { max-width: none; margin: 0.5rem 0; color: var(--secondary-color); text-align: center;}
+#footer-copyright { cursor: pointer; }
+
+
+/* Animations */
+@keyframes subtleFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.fade-in {
+    animation: subtleFadeIn 0.6s ease-out forwards;
+    opacity: 0; 
+    animation-play-state: paused;
+}
+.fade-in.visible {
+     animation-play-state: running;
+}
+@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+
+/* Responsive */
+@media (max-width: 992px) {
+    h1 { font-size: 2.8rem; }
+    h2 { font-size: 2.2rem; }
+    section { padding: 4rem 0; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .trees-slider { height: 70vh; }
+    .countdown-number { font-size: 2.5rem; }
+    .countdown-label { font-size: 0.9rem; }
+    .countdown { gap: 1.5rem; }
+}
+
+@media (max-width: 768px) {
+    /* --- START OF IMPROVEMENT: Consistent Mobile Padding --- */
+    .container {
+        width: 100%; /* Use full width with internal padding */
+        padding: 0 1.5rem; /* Add consistent padding on mobile */
+    }
+    /* --- END OF IMPROVEMENT --- */
+
+    section { padding: 3rem 0; }
+    h1 { font-size: 2.5rem; }
+    h2 { font-size: 2rem; }
+   
+    /* --- START OF IMPROVEMENT: Mobile Menu Adjustments --- */
+    .nav-menu {
+        padding: 6rem 1.5rem; /* Adjust padding for smaller screens */
+    }
+    .nav-menu a {
+        font-size: 1.5rem; /* Slightly smaller font for mobile menu */
+    }
+    /* --- END OF IMPROVEMENT --- */
+    
+    /* --- START OF CHANGE: Mobile Hero Countdown Positioning --- */
+    .hero-content {
+        text-align: center; /* Revert to center for better balance */
+        width: 100%;
+        padding-bottom: 10rem; /* Create space for the countdown timer */
+    }
+    h1 {
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+    .hero-subtitle, .hero-date {
+        text-align: center;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .countdown {
+        position: absolute;
+        bottom: 4rem; /* Harmonious spacing from the bottom */
+        left: 1.5rem; /* Align with container padding */
+        right: 1.5rem; /* Align with container padding */
+        width: auto;
+        justify-content: space-around; /* Evenly space the items */
+        gap: 0;
+        margin-top: 0;
+        padding: 1rem;
+        background: rgba(0,0,0,0.2);
+        backdrop-filter: blur(5px);
+        border-radius: 15px;
+    }
+    .countdown-number { font-size: 2rem; }
+    .countdown-label { font-size: 0.8rem; }
+    /* --- END OF CHANGE --- */
+
+    .contact-grid { gap: 2rem; }
+    .trees-slider { height: 60vh; }
+    .slide-content { padding: 2rem 5%; }
+    
+    /* --- START OF CHANGE: More padding for neomorphic blocks on mobile --- */
+    .card { padding: 2rem; }
+    .garden-map { padding: 2rem; }
+    /* --- END OF CHANGE --- */
+    
+    /* --- START OF CHANGE: Responsive Map Grid Gap --- */
+    .map-grid {
+        gap: 1rem; /* Adjusted gap for smaller screens */
+    }
+    /* --- END OF CHANGE --- */
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7); z-index: 2000; display: flex;
+    align-items: center; justify-content: center; opacity: 0;
+    visibility: hidden; transition: all 0.3s ease;
+}
+.modal-overlay.visible { opacity: 1; visibility: visible; }
+.modal-content {
+    background: white; padding: 2rem; border-radius: 10px;
+    max-width: 500px; width: 90%; position: relative;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    transform: translateY(-50px); transition: all 0.3s ease;
+}
+.modal-overlay.visible .modal-content { transform: translateY(0); }
+.modal-close {
+    position: absolute; top: 15px; right: 15px; background: none;
+    border: none; font-size: 1.5rem; cursor: pointer; color: #aaa;
+}
+.modal-img { width: 100%; height: 200px; object-fit: cover; border-radius: 5px; margin-bottom: 1rem; }
+
+/* --- START OF CHANGE: Modal Content Styling --- */
+#modal-tree-desc {
+    margin-top: 1rem;
+    color: #555;
+    font-size: 1rem;
+}
+.modal-progress-bar { 
+    width: 100%; 
+    background: #eee; 
+    border-radius: 5px; 
+    height: 20px; 
+    overflow: hidden; 
+    margin-top: 0.5rem;
+}
+.modal-progress-fill { height: 100%; background: var(--primary-color); border-radius: 5px; transition: width 0.5s ease; }
+/* --- END OF CHANGE --- */
