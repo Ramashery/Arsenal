@@ -1,0 +1,509 @@
+/* --- START OF NEW style.css --- */
+
+/* Base Styles & Resets */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Main Color Palette */
+    --light-cream: #f8f4e9;
+    /* ===== ИЗМЕНЕНИЕ: НОВЫЙ ЦВЕТ ДЛЯ ЗАГОЛОВКОВ ИЗ ПЕРЕКЛЮЧАТЕЛЯ ЯЗЫКОВ ===== */
+    --dark-blue: #475569; 
+    --primary-green: #5b8c7d;
+    --secondary-teal: #3a9188;
+    --accent-gold: #d4a96a;
+
+    /* Language switcher colors */
+    --lang-switcher-bg: #e2e8f0;
+    --lang-switcher-text: #475569;
+    --lang-switcher-active-bg: #475569;
+    --lang-switcher-active-text: #ffffff;
+    
+    /* Gradients */
+    --primary-gradient: linear-gradient(135deg, #5b8c7d 0%, #3a9188 100%);
+
+    /* Text Colors */
+    --text-dark: var(--dark-blue); /* <-- Используем новый цвет по умолчанию */
+    --text-light: #f8f4e9;
+    --overlay-dark: rgba(43, 61, 77, 0.85);
+
+    /* Mapped to old variable names for compatibility */
+    --primary-color: var(--primary-green);
+    --secondary-color: var(--secondary-teal);
+    --accent-color: var(--accent-gold);
+    --light-color: var(--light-cream);
+    --dark-color: var(--dark-blue); /* <-- Обновлено */
+    --text-color: var(--text-dark); /* <-- Обновлено */
+    --text-color-light: var(--text-light);
+
+    /* Шрифты */
+    --font-heading: 'Cormorant Garamond', serif;
+    --font-body: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+    /* Universal Smooth Transition */
+    --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    
+    /* ===== УДАЛЕНО: ПЕРЕМЕННЫЕ ДЛЯ НЕОМОРФИЗМА БОЛЬШЕ НЕ НУЖНЫ ===== */
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    line-height: 1.7;
+    color: var(--text-color);
+    background-color: var(--light-color);
+    overflow-x: hidden;
+}
+
+/* Typography */
+h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: var(--dark-color); /* <-- Цвет теперь применяется ко всем заголовкам */
+}
+h2 { font-size: 2.8rem; position: relative; padding-bottom: 0.75rem; }
+h2::after { content: ''; position: absolute; bottom: 0; left: 0; width: 70px; height: 3px; background-color: var(--accent-color); }
+.section-title { text-align: left; margin-top: 2rem; margin-bottom: 4rem; }
+h3 { font-size: 1.8rem; }
+p { margin-bottom: 1.5rem; font-size: 1.1rem; max-width: 800px; text-align: left; }
+footer p, .team-member p { text-align: center; }
+
+/* Containers & Sections */
+.container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+section { padding: 8rem 0; overflow: hidden; }
+
+/* Header & Navigation */
+header {
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+    background: var(--light-cream);
+    padding: 1.5rem 0;
+    box-shadow: 0 4px 20px rgba(43, 61, 77, 0.1);
+    border-bottom: 1px solid rgba(43, 61, 77, 0.1);
+    transition: var(--transition);
+}
+.nav-container { display: flex; justify-content: space-between; align-items: center; padding: 0; }
+
+.logo img {
+    height: 40px; 
+    display: block;
+    transition: var(--transition);
+}
+
+header.scrolled {
+    padding: 0.75rem 0;
+    background: rgba(248, 244, 233, 0.98);
+    backdrop-filter: blur(15px) saturate(180%);
+    box-shadow: 0 4px 30px rgba(43, 61, 77, 0.1);
+}
+header.scrolled .logo img {
+    height: 35px;
+}
+
+.nav-menu {
+    display: flex; flex-direction: column; list-style: none; position: fixed;
+    top: 0; right: 0; width: 90%; max-width: 400px; height: 100vh;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    background: rgba(248, 244, 233, 0.95);
+    border-left: 1px solid rgba(43, 61, 77, 0.1);
+    padding: 8rem 4rem;
+    align-items: flex-start;
+    box-shadow: -5px 0 25px rgba(43, 61, 77, 0.15); z-index: 1005;
+    transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.nav-menu.active { transform: translateX(0); }
+.nav-menu li { 
+    width: 100%; 
+    margin-bottom: 1.5rem;
+    opacity: 0; transform: translateY(20px); transition: opacity 0.3s ease, transform 0.3s ease; 
+}
+.nav-menu.active li:nth-child(1) { transition-delay: 0.20s; } .nav-menu.active li:nth-child(2) { transition-delay: 0.25s; } .nav-menu.active li:nth-child(3) { transition-delay: 0.30s; } .nav-menu.active li:nth-child(4) { transition-delay: 0.35s; } .nav-menu.active li:nth-child(5) { transition-delay: 0.40s; } .nav-menu.active li:nth-child(6) { transition-delay: 0.45s; } .nav-menu.active li:nth-child(7) { transition-delay: 0.50s; }
+.nav-menu.active li { opacity: 1; transform: translateY(0); }
+
+.nav-menu a {
+    text-decoration: none;
+    color: var(--dark-color); /* <-- Применяем новый цвет */
+    font-size: 1.6rem;
+    font-family: var(--font-heading); /* <-- Используем шрифт заголовков, как вы и хотели */
+    font-weight: 600;
+    padding: 0.5rem 0;
+    transition: var(--transition);
+    position: relative;
+}
+.nav-menu a:hover,
+.nav-menu a.active {
+    color: var(--primary-green);
+    transform: translateX(10px);
+}
+.nav-menu a::after { display: none; }
+.nav-menu a::before { display: none; }
+
+.nav-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); z-index: 1004; opacity: 0; visibility: hidden; transition: opacity 0.4s ease, visibility 0.4s ease; }
+.nav-overlay.active { opacity: 1; visibility: visible; }
+.hamburger { display: flex; flex-direction: column; justify-content: space-around; width: 30px; height: 25px; background: transparent; border: none; cursor: pointer; padding: 0; z-index: 1010; margin-left: 1.5rem; }
+
+.language-switcher {
+    display: flex;
+    background-color: var(--lang-switcher-bg);
+    border-radius: 20px;
+    padding: 4px;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+.language-switcher button { 
+    background: none; 
+    border: none; 
+    cursor: pointer; 
+    margin: 0;
+    padding: 6px 14px;
+    border-radius: 16px;
+    font-family: var(--font-body); 
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--lang-switcher-text);
+    transition: var(--transition); 
+}
+.language-switcher button.active { 
+    background-color: var(--lang-switcher-active-bg);
+    color: var(--lang-switcher-active-text);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.hamburger span { width: 100%; height: 3px; background-color: #2b3d4d; border-radius: 2px; transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+.hamburger.active span { background-color: #2b3d4d; }
+.hamburger.active span:nth-child(1) { transform: translateY(11px) rotate(45deg); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: translateY(-11px) rotate(-45deg); }
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(var(--overlay-dark), var(--overlay-dark)), 
+                var(--hero-image, #2b3d4d)
+                center center / cover no-repeat fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 6rem 2rem;
+    text-align: center;
+}
+
+.hero-content { display: flex; flex-direction: column; align-items: center; max-width: 900px; }
+.hero-text, .hero-countdown { width: 100%; }
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.hero h1 {
+    font-size: clamp(2.2rem, 7.5vw, 6.5rem); 
+    font-weight: 400; line-height: 1.1; margin-bottom: 1.5rem; color: var(--text-light);
+    letter-spacing: -0.015em; font-family: var(--font-heading); white-space: nowrap;
+    text-shadow: 0 2px 25px rgba(0, 0, 0, 0.6);
+    animation: fadeInUp 1.2s cubic-bezier(0.165, 0.84, 0.44, 1) 0.3s both;
+}
+.hero-subtitle {
+    font-family: var(--font-heading); font-size: clamp(1.1rem, 2.5vw, 1.6rem); font-style: normal;
+    font-weight: 400; color: rgba(248, 244, 233, 0.9); letter-spacing: 0.02em; max-width: 700px;
+    line-height: 1.6; margin: 0 auto 3rem auto;
+    animation: fadeInUp 1.2s cubic-bezier(0.165, 0.84, 0.44, 1) 0.5s both;
+    text-align: center;
+}
+.hero-date {
+    font-weight: 500; color: var(--accent-gold); margin-bottom: 1.5rem; font-size: 1rem;
+    letter-spacing: 0.1em; text-transform: uppercase; font-family: var(--font-body); text-align: center;
+}
+
+.hero .hero-countdown { animation: fadeInUp 1.2s cubic-bezier(0.165, 0.84, 0.44, 1) 0.7s both; }
+.countdown { display: flex; flex-direction: row; justify-content: center; gap: 2rem; }
+.countdown-item {
+    display: flex; flex-direction: column; align-items: center;
+    background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px);
+    border-radius: 15px; padding: 1.5rem 2rem; min-width: 120px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.countdown-number {
+    font-size: clamp(2.5rem, 6vw, 3.5rem); font-weight: 300;
+    font-family: var(--font-body); color: var(--text-light); line-height: 1;
+}
+.countdown-label {
+    font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.2em;
+    color: rgba(248, 244, 233, 0.7); font-weight: 500; margin-top: 0.5rem;
+}
+
+.btn {
+    display: inline-block; padding: 12px 30px;
+    background-color: var(--secondary-teal); color: white; text-decoration: none;
+    border-radius: 30px; font-weight: 500; border: 2px solid var(--secondary-teal);
+    cursor: pointer; position: relative; overflow: hidden;
+    transition: var(--transition);
+}
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(91, 140, 125, 0.3);
+}
+
+#about {
+    position: relative; overflow: hidden; background-color: var(--light-cream);
+}
+/* ... existing styles for #about pseudo-elements ... */
+
+/* Trees Section (Slider) */
+#trees { padding: 0; }
+/* ... existing styles for .trees-slider ... */
+
+/* Events Section */
+.events-timeline { position: relative; max-width: 800px; margin: 0; }
+/* ... existing styles for .events-timeline ... */
+
+
+/* ===== НАЧАЛО ИЗМЕНЕНИЙ: НОВЫЕ СТИЛИ ДЛЯ СЕКЦИЙ #help И #materials ===== */
+
+/* 1. Общие стили для карточек в секции "Как помочь" */
+.help-cards { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    gap: 2.5rem; 
+}
+
+.help-cards .card {
+    background-color: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(43, 61, 77, 0.1);
+    border-radius: 15px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 30px rgba(43, 61, 77, 0.07);
+    transition: var(--transition);
+}
+
+.help-cards .card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(43, 61, 77, 0.12);
+}
+
+/* 2. Общие стили для блока с картой сада */
+.garden-map {
+    margin-top: 6rem;
+    background-color: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(43, 61, 77, 0.1);
+    border-radius: 15px;
+    padding: 3rem;
+    box-shadow: 0 10px 30px rgba(43, 61, 77, 0.07);
+}
+
+.map-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
+    gap: 2rem; 
+    margin-top: 2.5rem; 
+    width: 100%; 
+}
+
+.map-category-item {
+    background: transparent;
+    border: 1px solid rgba(43, 61, 77, 0.15);
+    border-radius: 10px;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.map-category-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-green);
+    box-shadow: 0 8px 25px rgba(91, 140, 125, 0.15);
+}
+
+.map-category-name {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--dark-color);
+}
+
+.map-tree-icons { 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 8px; 
+    justify-content: center; 
+    max-width: 180px; 
+    margin: 0 auto; 
+}
+.map-tree-icon {
+    font-size: 1rem;
+    color: rgba(43, 61, 77, 0.3); /* Цвет для "пустых" деревьев */
+    transition: all 0.3s ease;
+}
+.map-tree-icon.funded {
+    color: var(--primary-green); /* Цвет для оплаченных деревьев */
+    text-shadow: 0 0 8px rgba(91, 140, 125, 0.7); /* Добавляем свечение */
+}
+
+/* 3. Новый дизайн счётчика и прогресс-бара */
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 1rem;
+    padding: 0 0.5rem;
+}
+.progress-counter {
+    font-family: var(--font-body);
+    font-size: 2rem;
+    color: var(--dark-color);
+    line-height: 1;
+}
+.progress-counter #progress-current { font-weight: 600; }
+.progress-counter .progress-separator {
+    font-weight: 300;
+    color: rgba(43, 61, 77, 0.5);
+    margin: 0 0.25rem;
+}
+.progress-counter #progress-total {
+    font-weight: 300;
+    font-size: 1.5rem;
+    color: rgba(43, 61, 77, 0.5);
+}
+
+.progress-bar {
+    height: 12px;
+    background: rgba(43, 61, 77, 0.1);
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 6px;
+    background: var(--primary-gradient);
+    transition: width 1.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* 4. Стили для аккордеона в секции "Материалы" */
+.materials-accordion { max-width: 800px; margin: 0; }
+.material-item { 
+    margin-bottom: 1.5rem; 
+    background-color: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(43, 61, 77, 0.1);
+    border-radius: 15px;
+    transition: var(--transition);
+}
+.material-item:hover {
+    border-color: rgba(43, 61, 77, 0.2);
+    box-shadow: 0 10px 30px rgba(43, 61, 77, 0.07);
+}
+.material-item[open] {
+    box-shadow: 0 10px 30px rgba(43, 61, 77, 0.07);
+}
+.material-item summary { 
+    padding: 1.5rem; 
+    cursor: pointer; 
+    font-weight: 600; 
+    font-size: 1.2rem; 
+    list-style: none; 
+    position: relative; 
+    color: var(--dark-color);
+}
+.material-item summary::-webkit-details-marker { display: none; }
+.material-item summary::after { 
+    content: '+'; 
+    position: absolute; 
+    right: 1.5rem; top: 50%; 
+    transform: translateY(-50%); 
+    font-size: 1.5rem; 
+    transition: var(--transition); 
+    color: var(--primary-green);
+}
+.material-item[open] summary::after { transform: translateY(-50%) rotate(45deg); }
+.material-content { padding: 0 1.5rem 1.5rem 1.5rem; }
+.material-content ul { padding-left: 1.5rem; }
+
+/* ===== КОНЕЦ ИЗМЕНЕНИЙ: Стили неоморфизма ниже можно удалить ===== */
+
+/* Team Section */
+.team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 2rem; }
+/* ... existing styles for .team-grid ... */
+
+/* Contacts Section & Forms */
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+/* ... existing styles for .contact-grid and form elements ... */
+
+/* Footer */
+footer { background: #2b3d4d; color: var(--text-color-light); padding: 3rem 0; text-align: center; }
+footer p { max-width: none; margin: 0.5rem 0; color: var(--secondary-color); text-align: center;}
+#footer-copyright { cursor: pointer; }
+
+/* Global Micro-Animations */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+/* ... existing styles for .fade-in and other animations ... */
+
+/* Modal Styles */
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); z-index: 2000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+/* ... existing styles for .modal ... */
+
+
+/* ===== УДАЛЕНО: БЛОК СТИЛЕЙ ДЛЯ НЕОМОРФИЗМА ===== */
+/* Все стили, начинающиеся с .section-neumorphic, были удалены, 
+   а их функциональность заменена новыми стилями выше. */
+
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    h2 { font-size: 2.2rem; }
+    section { padding: 6rem 0; }
+    .contact-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+    .container { width: 100%; padding: 0 1.5rem; }
+    section { padding: 4rem 0; }
+    h2 { font-size: 2rem; }
+    .nav-menu { padding: 6rem 1.5rem; } .nav-menu a { font-size: 1.5rem; }
+    
+    .hero { 
+        min-height: 90vh;
+        padding-top: 8rem;
+        padding-bottom: 4rem;
+    }
+    
+    .countdown { 
+        gap: 1rem;
+        flex-wrap: wrap;
+    } 
+    .countdown-item {
+        padding: 1rem 1.5rem;
+        min-width: 100px;
+    }
+
+    .contact-grid { gap: 2rem; }
+    /* Обновляем отступы для новых карточек на мобильных устройствах */
+    .help-cards .card, .garden-map, .material-item { 
+        padding: 2rem; 
+    }
+    .map-grid { gap: 1rem; }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  #about::before, #about::after, .slide, .btn, .fade-in, .nav-menu a, .map-category-item, .hero h1, .hero-subtitle, .content-reveal {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* --- END OF NEW style.css --- */
